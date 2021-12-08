@@ -21,6 +21,7 @@ private:
 	void applyTranslation(float dt);
 	void stopPlayer();
 	void startLerping();
+	void roundMoveDirection();
 	Ogre::Vector3 Lerp(Ogre::Vector3 start, Ogre::Vector3 end, float percent);
 	Ogre::Camera* m_player_Camera;
 	Ogre::SceneNode* m_camera_Node;
@@ -40,7 +41,6 @@ private:
 	bool m_moving_Backward{ false };
 	bool m_moving_Left{ false };
 	bool m_moving_Right{ false };
-	bool m_called_Event{ false };
 	int m_number_Of_Keys_Pressed{ 0 };
 };
 

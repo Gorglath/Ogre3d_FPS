@@ -167,6 +167,7 @@ void Player::applyTranslation(float dt)
 void Player::stopPlayer()
 {
     m_last_Key_Pressed = SDLK_0;
+    roundMoveDirection();
     m_desired_Direction = Ogre::Vector3::ZERO;
     m_lerping_Percentage = 0.0f;
     m_lerping = true;
@@ -180,6 +181,11 @@ void Player::startLerping()
     m_lerping = true;
     m_lerping_Percentage = 0.0f;
     m_move_Direction = m_desired_Direction;
+}
+void Player::roundMoveDirection()
+{
+    m_move_Direction.normalise();
+    m_move_Direction = Ogre::Vector3(round(m_move_Direction.x), round(m_move_Direction.y), round(m_move_Direction.z));
 }
 Ogre::Vector3 Player::Lerp(Ogre::Vector3 start, Ogre::Vector3 end, float percent)
 {
