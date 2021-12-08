@@ -14,6 +14,7 @@ void Player::init(Ogre::SceneManager* sceneManager)
     m_player_Camera->setNearClipDistance(5); // specific to this sample
     m_player_Camera->setAutoAspectRatio(true);
     m_camera_Pitch_Node->attachObject(m_player_Camera);
+    SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 void Player::update(float dt)
@@ -187,13 +188,14 @@ Ogre::Vector3 Player::Lerp(Ogre::Vector3 start, Ogre::Vector3 end, float percent
 }
 void Player::setMouseMovementInput(const OgreBites::MouseMotionEvent& evt)
 {
-    m_camera_Yaw_Node->yaw(Ogre::Degree(-0.5f * evt.xrel), Ogre::Node::TS_PARENT);
-    float deltaPitch = -0.5f * evt.yrel;
-    // bound the pitch
-    if (!(m_camera_Pivot_Pitch + deltaPitch > 25 && deltaPitch > 0) &&
-        !(m_camera_Pivot_Pitch + deltaPitch < -60 && deltaPitch < 0))
-    {
-        m_camera_Pitch_Node->pitch(Ogre::Degree(deltaPitch), Ogre::Node::TS_LOCAL);
-        m_camera_Pivot_Pitch += deltaPitch;
-    }
+        m_camera_Yaw_Node->yaw(Ogre::Degree(-0.5f * evt.xrel), Ogre::Node::TS_PARENT);
+        float deltaPitch = -0.5f * evt.yrel;
+        // bound the pitch
+        if (!(m_camera_Pivot_Pitch + deltaPitch > 25 && deltaPitch > 0) &&
+            !(m_camera_Pivot_Pitch + deltaPitch < -60 && deltaPitch < 0))
+        {
+            m_camera_Pitch_Node->pitch(Ogre::Degree(deltaPitch), Ogre::Node::TS_LOCAL);
+            m_camera_Pivot_Pitch += deltaPitch;
+        }
+    
 }

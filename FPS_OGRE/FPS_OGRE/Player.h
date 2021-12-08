@@ -40,6 +40,7 @@ private:
 	bool m_moving_Backward{ false };
 	bool m_moving_Left{ false };
 	bool m_moving_Right{ false };
+	bool m_called_Event{ false };
 	int m_number_Of_Keys_Pressed{ 0 };
 };
 
