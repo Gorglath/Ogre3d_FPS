@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "OgreLog.h"
 Game::Game() : OgreBites::ApplicationContext("Test")
 {
 }
@@ -38,6 +39,12 @@ void Game::setup(void)
 	//Load the base level.
     LevelManager manager;
     manager.init(sceneManager);
+}
+
+void Game::update()
+{
+	Ogre::Log log("Maybe?");
+	log.logMessage("Updating");
 }
 
 bool Game::keyPressed(const OgreBites::KeyboardEvent& evt)

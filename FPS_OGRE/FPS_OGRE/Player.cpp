@@ -21,30 +21,90 @@ void Player::setKeyboardInput(const OgreBites::KeyboardEvent& evt)
 {
     if (evt.type == OgreBites::EventType::KEYDOWN) 
     {
-        Ogre::Vector3 newTranslation(0.0f, 0.0f, 0.0f);
-        if (evt.keysym.sym == OgreBites::SDLK_DOWN)
-        {
-            //Move the camera node by the new position.
-            newTranslation = Ogre::Vector3(0.0f, 0.0f, 1.0f);
-        }
-        else if (evt.keysym.sym == OgreBites::SDLK_UP)
-        {
-            newTranslation = Ogre::Vector3(0.0f, 0.0f, -1.0f);
-        }
-
-        if (evt.keysym.sym == OgreBites::SDLK_RIGHT)
-        {
-            newTranslation = Ogre::Vector3(1.0f, 0.0f, 0.0f);
-        }
-        else if (evt.keysym.sym == OgreBites::SDLK_LEFT)
-        {
-            newTranslation = Ogre::Vector3(-1.0f, 0.0f, 0.0f);
-        }
-        m_camera_Node->translate(m_camera_Yaw_Node->getOrientation()* m_camera_Pitch_Node->getOrientation()* newTranslation
-            , Ogre::SceneNode::TS_LOCAL);
+        keyPressed(evt);
+    }
+    else if (evt.type == OgreBites::EventType::KEYUP)
+    {
+        keyReleased(evt);
     }
 }
 
+void Player::keyPressed(const OgreBites::KeyboardEvent& evt)
+{
+    if (evt.keysym.sym == OgreBites::SDLK_DOWN || m_moving_back)
+    {
+        m_moving_forward = false;
+        m_moving_back = true;
+        moveBackward();
+    }
+    if (evt.keysym.sym == OgreBites::SDLK_UP || m_moving_forward)
+    {
+        m_moving_back = false;
+        m_moving_forward = true;
+        moveForward();
+    }
+
+    if (evt.keysym.sym == OgreBites::SDLK_RIGHT || m_moving_right)
+    {
+        m_moving_left = false;
+        m_moving_right = true;
+        moveRight();
+    }
+    if (evt.keysym.sym == OgreBites::SDLK_LEFT || m_moving_left)
+    {
+        m_moving_right = false;
+        m_moving_left = true;
+        moveLeft();
+    }
+}
+
+void Player::keyReleased(const OgreBites::KeyboardEvent& evt)
+{
+    if (evt.keysym.sym == OgreBites::SDLK_DOWN)
+    {
+        //Move the camera node by the new position.
+        m_moving_back = false;
+    }
+    else if (evt.keysym.sym == OgreBites::SDLK_UP)
+    {
+        m_moving_forward = false;
+    }
+
+    if (evt.keysym.sym == OgreBites::SDLK_RIGHT)
+    {
+        m_moving_right = false;
+    }
+    else if (evt.keysym.sym == OgreBites::SDLK_LEFT)
+    {
+        m_moving_left = false;
+    }
+}
+void Player::moveLeft()
+{
+    Ogre::Vector3 m_camera_Translation = Ogre::Vector3(-1.0f, 0.0f, 0.0f);
+    applyTranslation(m_camera_Translation);
+}
+void Player::moveRight()
+{
+    Ogre::Vector3 m_camera_Translation = Ogre::Vector3(1.0f, 0.0f, 0.0f);
+    applyTranslation(m_camera_Translation);
+}
+void Player::moveForward()
+{
+    Ogre::Vector3 m_camera_Translation = Ogre::Vector3(0.0f, 0.0f, -1.0f);
+    applyTranslation(m_camera_Translation);
+}
+void Player::moveBackward()
+{
+    //Move the camera node by the new position.
+    Ogre::Vector3 m_camera_Translation = Ogre::Vector3(0.0f, 0.0f, 1.0f);
+    applyTranslation(m_camera_Translation);
+}
+void Player::applyTranslation(Ogre::Vector3& translation)
+{
+    m_camera_Node->translate(m_camera_Yaw_Node->getOrientation() * translation
+        , Ogre::SceneNode::TS_LOCAL);
+}
 void Player::setMouseMovementInput(const OgreBites::MouseMotionEvent& evt)
 {
     m_camera_Yaw_Node->yaw(Ogre::Degree(-0.5f * evt.xrel), Ogre::Node::TS_PARENT);
