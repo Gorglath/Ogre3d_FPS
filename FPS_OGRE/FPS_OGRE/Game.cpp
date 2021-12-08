@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "OgreLog.h"
 Game::Game() : OgreBites::ApplicationContext("Test")
 {
 }
@@ -41,10 +40,9 @@ void Game::setup(void)
     manager.init(sceneManager);
 }
 
-void Game::update()
+void Game::update(float dt)
 {
-	Ogre::Log log("Maybe?");
-	log.logMessage("Updating");
+	m_player.update(dt);
 }
 
 bool Game::keyPressed(const OgreBites::KeyboardEvent& evt)

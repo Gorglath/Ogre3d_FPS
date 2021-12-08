@@ -10,7 +10,7 @@ class Game : public OgreBites::ApplicationContext
 public:
 	Game();
 	void setup();
-	void update();
+	void update(float dt);
 	bool keyPressed(const OgreBites::KeyboardEvent& evt);
 private:
 	Player m_player;
