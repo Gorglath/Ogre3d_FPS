@@ -1,5 +1,5 @@
 #include "InputManager.h"
-#include <OgreLog.h>
+//#include <OgreLog.h>
 #include <algorithm>
 using std::find;
 
@@ -110,8 +110,8 @@ void InputManager::removeMouseWheelListener(MouseWheelInput* listener)
 
 bool InputManager::keyPressed(const OgreBites::KeyboardEvent& evt)
 {
-    Ogre::Log log("KeyboardEvent");
-    log.logMessage("PressedKeyboard");
+ /*   Ogre::Log log("KeyboardEvent");
+    log.logMessage("PressedKeyboard");*/
     for (auto& object : m_keyboard_Input_Objects)
     {
         object->setKeyboardInput(evt);
@@ -121,8 +121,8 @@ bool InputManager::keyPressed(const OgreBites::KeyboardEvent& evt)
 
 bool InputManager::keyReleased(const OgreBites::KeyboardEvent& evt)
 {
-    Ogre::Log log("KeyboardEvent");
-    log.logMessage("ReleasedKeyboard");
+    /*Ogre::Log log("KeyboardEvent");
+    log.logMessage("ReleasedKeyboard");*/
     for (auto& object : m_keyboard_Input_Objects)
     {
         object->setKeyboardInput(evt);
@@ -132,8 +132,8 @@ bool InputManager::keyReleased(const OgreBites::KeyboardEvent& evt)
 
 bool InputManager::mouseMoved(const OgreBites::MouseMotionEvent& evt)
 {
-    Ogre::Log log("MouseMoveEvent");
-    log.logMessage("MovedMouse");
+   /* Ogre::Log log("MouseMoveEvent");
+    log.logMessage("MovedMouse");*/
     for (auto& object : m_mouse_Movement_Input_Objects)
     {
         object->setMouseMovementInput(evt);
@@ -143,8 +143,8 @@ bool InputManager::mouseMoved(const OgreBites::MouseMotionEvent& evt)
 
 bool InputManager::mousePressed(const OgreBites::MouseButtonEvent& evt)
 {
-    Ogre::Log log("MouseButtonEvent");
-    log.logMessage("MousePressed");
+    /*Ogre::Log log("MouseButtonEvent");
+    log.logMessage("MousePressed");*/
     for (auto& object : m_mouse_Button_Input_Objects)
     {
         object->setMouseButtonInput(evt);
@@ -154,8 +154,8 @@ bool InputManager::mousePressed(const OgreBites::MouseButtonEvent& evt)
 
 bool InputManager::mouseReleased(const OgreBites::MouseButtonEvent& evt)
 {
-    Ogre::Log log("MouseButtonEvent");
-    log.logMessage("MouseReleased");
+   /* Ogre::Log log("MouseButtonEvent");
+    log.logMessage("MouseReleased");*/
     for (auto& object : m_mouse_Button_Input_Objects)
     {
         object->setMouseButtonInput(evt);
@@ -165,8 +165,8 @@ bool InputManager::mouseReleased(const OgreBites::MouseButtonEvent& evt)
 
 bool InputManager::mouseWheelRolled(const OgreBites::MouseWheelEvent& evt)
 {
-    Ogre::Log log("MouseWheelEvent");
-    log.logMessage("MouseWheelRolled");
+    /*Ogre::Log log("MouseWheelEvent");
+    log.logMessage("MouseWheelRolled");*/
     for (auto& object : m_mouse_Wheel_Input_Objects)
     {
         object->setMouseWheelInput(evt);

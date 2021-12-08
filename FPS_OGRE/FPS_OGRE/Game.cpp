@@ -12,6 +12,11 @@ void Game::setup(void)
 	//Add this object to receive input events.
 	addInputListener(input);
 
+	KeyboardInput* playerKeyboardInput = &m_player;
+	m_input_Manager.addKeyboardInputListener(playerKeyboardInput);
+
+	MouseMovementInput* playerMouseInput = &m_player;
+	m_input_Manager.addMouseMovementListener(playerMouseInput);
 	//Get the application starting point and create a new scene manager in that point.
 	Ogre::Root* root = getRoot();
 	Ogre::SceneManager* sceneManager = root->createSceneManager();
@@ -41,6 +46,5 @@ bool Game::keyPressed(const OgreBites::KeyboardEvent& evt)
 	{
 		getRoot()->queueEndRendering();
 	}
-    m_player.keyPressed(evt);
 	return true;
 }
