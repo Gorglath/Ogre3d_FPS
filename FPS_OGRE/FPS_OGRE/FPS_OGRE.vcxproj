@@ -143,13 +143,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="MouseButtonInput.hpp" />
+    <ClInclude Include="MouseMovementInput.hpp" />
+    <ClInclude Include="KeyboardInput.hpp" />
+    <ClInclude Include="MouseWheelInput.hpp" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

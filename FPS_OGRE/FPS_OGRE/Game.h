@@ -3,8 +3,9 @@
 #include <Ogre.h>
 #include <OgreApplicationContext.h>
 #include "LevelManager.h"
+#include "InputManager.h"
 #include "Player.h"
-class Game : public OgreBites::ApplicationContext, public OgreBites::InputListener
+class Game : public OgreBites::ApplicationContext
 {
 public:
 	Game();
@@ -12,5 +13,6 @@ public:
 	bool keyPressed(const OgreBites::KeyboardEvent& evt);
 private:
 	Player m_player;
+	InputManager m_input_Manager;
 };
 

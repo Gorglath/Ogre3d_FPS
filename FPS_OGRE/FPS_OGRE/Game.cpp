@@ -8,8 +8,9 @@ void Game::setup(void)
 	//Setup the ogre application.
 	OgreBites::ApplicationContext::setup();
 
+	OgreBites::InputListener* input = &m_input_Manager;
 	//Add this object to receive input events.
-	addInputListener(this);
+	addInputListener(input);
 
 	//Get the application starting point and create a new scene manager in that point.
 	Ogre::Root* root = getRoot();
