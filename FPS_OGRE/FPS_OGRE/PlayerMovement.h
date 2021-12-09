@@ -12,7 +12,7 @@ public:
 	void setKeyboardInput(const OgreBites::KeyboardEvent& evt);
 	void setMouseMovementInput(const OgreBites::MouseMotionEvent& evt);
 	inline Ogre::Camera* getPlayerCamera() const { return m_player_Camera; }
-	inline Ogre::SceneNode* getCameraNode() const { return m_camera_Node; }
+	inline Ogre::SceneNode* getCameraNode() const { return m_camera_Pitch_Node; }
 private:
 	void keyPressed(const OgreBites::KeyboardEvent& evt);
 	void keyReleased(const OgreBites::KeyboardEvent& evt);
@@ -21,14 +21,14 @@ private:
 	void startLerping();
 	void calculateDesiredDirection();
 	Ogre::Vector3 Lerp(Ogre::Vector3 start, Ogre::Vector3 end, float percent);
-	Ogre::Camera* m_player_Camera;
-	Ogre::SceneNode* m_camera_Node;
-	Ogre::SceneNode* m_camera_Yaw_Node;
-	Ogre::SceneNode* m_camera_Pitch_Node;
-	Ogre::SceneNode* m_camera_Roll_Node;
-	Ogre::Vector3 m_move_Direction;
-	Ogre::Vector3 m_desired_Direction;
-	SDL_Keycode m_last_Key_Pressed;
+	Ogre::Camera* m_player_Camera = nullptr;
+	Ogre::SceneNode* m_camera_Node = nullptr;
+	Ogre::SceneNode* m_camera_Yaw_Node = nullptr;
+	Ogre::SceneNode* m_camera_Pitch_Node = nullptr;
+	Ogre::SceneNode* m_camera_Roll_Node = nullptr;
+	Ogre::Vector3 m_move_Direction = Ogre::Vector3::ZERO;
+	Ogre::Vector3 m_desired_Direction = Ogre::Vector3::ZERO;;
+	SDL_Keycode m_last_Key_Pressed = SDLK_0;
 	float m_speed{ 10.0f };
 	float m_camera_Pivot_Pitch{ 0 };
 	float m_lerping_Percentage{ 0 };

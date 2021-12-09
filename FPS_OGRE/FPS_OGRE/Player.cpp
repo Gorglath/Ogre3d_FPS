@@ -2,6 +2,7 @@
 void Player::init(Ogre::SceneManager* sceneManager)
 {
     m_player_Movement.init(sceneManager);
+    m_player_Weapon.init(sceneManager,m_player_Movement.getCameraNode());
 }
 
 void Player::update(float dt)
