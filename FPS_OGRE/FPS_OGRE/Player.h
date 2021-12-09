@@ -3,10 +3,11 @@
 #include <OgreApplicationContext.h>
 #include "KeyboardInput.hpp"
 #include "MouseMovementInput.hpp"
+#include "MouseButtonInput.hpp"
 #include "PlayerMovement.h"
 #include "PlayerWeapon.h"
 
-class Player : public KeyboardInput, public MouseMovementInput
+class Player : public KeyboardInput, public MouseMovementInput, public MouseButtonInput
 {
 public:
 	Player() = default;
@@ -15,6 +16,7 @@ public:
 	void update(float dt);
 	void setKeyboardInput(const OgreBites::KeyboardEvent& evt) override;
 	void setMouseMovementInput(const OgreBites::MouseMotionEvent& evt) override;
+	void setMouseButtonInput(const OgreBites::MouseButtonEvent& evt) override;
 	inline Ogre::Camera* getPlayerCamera() const { return m_player_Movement.getPlayerCamera(); }
 private:
 	PlayerMovement m_player_Movement;

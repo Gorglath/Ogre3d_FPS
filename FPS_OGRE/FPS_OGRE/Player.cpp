@@ -19,3 +19,8 @@ void Player::setMouseMovementInput(const OgreBites::MouseMotionEvent& evt)
 {
     m_player_Movement.setMouseMovementInput(evt);
 }
+
+void Player::setMouseButtonInput(const OgreBites::MouseButtonEvent& evt)
+{
+    m_player_Weapon.setMouseButtonInput(evt);
+}

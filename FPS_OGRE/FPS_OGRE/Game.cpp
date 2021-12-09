@@ -15,8 +15,11 @@ void Game::setup(void)
 	KeyboardInput* playerKeyboardInput = &m_player;
 	m_input_Manager.addKeyboardInputListener(playerKeyboardInput);
 
-	MouseMovementInput* playerMouseInput = &m_player;
-	m_input_Manager.addMouseMovementListener(playerMouseInput);
+	MouseMovementInput* playerMouseMovementInput = &m_player;
+	m_input_Manager.addMouseMovementListener(playerMouseMovementInput);
+
+	MouseButtonInput* playerMouseButtonInput = &m_player;
+	m_input_Manager.addMouseButtonListener(playerMouseButtonInput);
 	//Get the application starting point and create a new scene manager in that point.
 	Ogre::Root* root = getRoot();
 	Ogre::SceneManager* sceneManager = root->createSceneManager();
