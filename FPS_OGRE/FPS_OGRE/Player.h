@@ -4,6 +4,7 @@
 #include "KeyboardInput.hpp"
 #include "MouseMovementInput.hpp"
 #include "PlayerMovement.h"
+#include "PlayerWeapon.h"
 
 class Player : public KeyboardInput, public MouseMovementInput
 {
@@ -17,5 +18,6 @@ public:
 	inline Ogre::Camera* getPlayerCamera() const { return m_player_Movement.getPlayerCamera(); }
 private:
 	PlayerMovement m_player_Movement;
+	PlayerWeapon m_player_Weapon;
 };
 

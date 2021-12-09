@@ -12,7 +12,7 @@ void PlayerMovement::init(Ogre::SceneManager* sceneManager)
 
     // create the camera and attach it to the camera node.
     m_player_Camera = sceneManager->createCamera("myCam");
-    m_player_Camera->setNearClipDistance(5); // specific to this sample
+    m_player_Camera->setNearClipDistance(0.1f); 
     m_player_Camera->setAutoAspectRatio(true);
     m_camera_Pitch_Node->attachObject(m_player_Camera);
     SDL_SetRelativeMouseMode(SDL_TRUE);
