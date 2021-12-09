@@ -17,6 +17,7 @@ public:
 	void setKeyboardInput(const OgreBites::KeyboardEvent& evt) override;
 	void setMouseMovementInput(const OgreBites::MouseMotionEvent& evt) override;
 	void setMouseButtonInput(const OgreBites::MouseButtonEvent& evt) override;
+	inline bool getIsShooting() const { return m_player_Weapon.getShooting(); }
 	inline Ogre::Camera* getPlayerCamera() const { return m_player_Movement.getPlayerCamera(); }
 private:
 	PlayerMovement m_player_Movement;
