@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "OgreLog.h"
 void Player::init(Ogre::SceneManager* sceneManager)
 {
     //Create a new node to handle the camera.
@@ -19,28 +20,12 @@ void Player::init(Ogre::SceneManager* sceneManager)
 
 void Player::update(float dt)
 {
-    if (m_moving_Backward)
-    {
-        m_desired_Direction += Ogre::Vector3(0.0f, 0.0f, 1.0f);
-    }
-    if (m_moving_Forward)
-    {
-        m_desired_Direction += Ogre::Vector3(0.0f, 0.0f, -1.0f);
-    }
-    if (m_moving_Left)
-    {
-        m_desired_Direction += Ogre::Vector3(-1.0f, 0.0f, 0.0f);
-    }
-    if (m_moving_Right)
-    {
-        m_desired_Direction += Ogre::Vector3(1.0f, 0.0f, 0.0f);
-    }
-    m_desired_Direction.normalise();
-    m_desired_Direction *= m_speed;
+    calculateDesiredDirection();
+
     if (m_lerping)
     {
-        m_lerping_Percentage += dt * m_lerping_Speed;
-        if (m_lerping_Percentage > 1.0f)
+        m_lerping_Percentage += m_lerping_Speed;
+        if ((m_lerping_Percentage * dt) > 1.0f)
         {
             m_lerping_Percentage = 1.0f;
             m_lerping = false;
@@ -118,22 +103,38 @@ void Player::keyReleased(const OgreBites::KeyboardEvent& evt)
     {
         m_number_Of_Keys_Pressed--;
         m_moving_Backward = false;
+        if (m_number_Of_Keys_Pressed > 0)
+        {
+            startLerping();
+        }
     }
     if (evt.keysym.sym == SDLK_w)
     {
         m_number_Of_Keys_Pressed--;
         m_moving_Forward = false;
+        if (m_number_Of_Keys_Pressed > 0)
+        {
+            startLerping();
+        }
     }
 
     if (evt.keysym.sym == SDLK_d)
     {
         m_number_Of_Keys_Pressed--;
         m_moving_Right = false;
+        if (m_number_Of_Keys_Pressed > 0)
+        {
+            startLerping();
+        }
     }
     if (evt.keysym.sym == SDLK_a)
     {
         m_number_Of_Keys_Pressed--;
         m_moving_Left = false;
+        if (m_number_Of_Keys_Pressed > 0)
+        {
+            startLerping();
+        }
     }
     if (m_number_Of_Keys_Pressed <= 0)
     {
@@ -149,12 +150,11 @@ void Player::applyTranslation(float dt)
     Ogre::Vector3 newTranslation;
     if (m_move_Direction != Ogre::Vector3::ZERO)
     {
-        newTranslation = Lerp(m_move_Direction, m_desired_Direction, m_lerping_Percentage);
+        newTranslation = Lerp(m_move_Direction, m_desired_Direction, m_lerping_Percentage * dt);
     }
     else
     {
         newTranslation = m_desired_Direction;
-        m_move_Direction = m_desired_Direction;
     }
 
     if (m_running)
@@ -167,7 +167,7 @@ void Player::applyTranslation(float dt)
 void Player::stopPlayer()
 {
     m_last_Key_Pressed = SDLK_0;
-    roundMoveDirection();
+    m_move_Direction = Ogre::Vector3::ZERO;
     m_desired_Direction = Ogre::Vector3::ZERO;
     m_lerping_Percentage = 0.0f;
     m_lerping = true;
@@ -182,10 +182,27 @@ void Player::startLerping()
     m_lerping_Percentage = 0.0f;
     m_move_Direction = m_desired_Direction;
 }
-void Player::roundMoveDirection()
+void Player::calculateDesiredDirection()
 {
-    m_move_Direction.normalise();
-    m_move_Direction = Ogre::Vector3(round(m_move_Direction.x), round(m_move_Direction.y), round(m_move_Direction.z));
+    m_desired_Direction = Ogre::Vector3::ZERO;
+    if (m_moving_Backward)
+    {
+        m_desired_Direction += Ogre::Vector3(0.0f, 0.0f, 1.0f);
+    }
+    if (m_moving_Forward)
+    {
+        m_desired_Direction += Ogre::Vector3(0.0f, 0.0f, -1.0f);
+    }
+    if (m_moving_Left)
+    {
+        m_desired_Direction += Ogre::Vector3(-1.0f, 0.0f, 0.0f);
+    }
+    if (m_moving_Right)
+    {
+        m_desired_Direction += Ogre::Vector3(1.0f, 0.0f, 0.0f);
+    }
+    m_desired_Direction.normalise();
+    m_desired_Direction *= m_speed;
 }
 Ogre::Vector3 Player::Lerp(Ogre::Vector3 start, Ogre::Vector3 end, float percent)
 {
