@@ -24,7 +24,7 @@ void Game::setup(void)
 
 	//Get the application starting point and create a new scene manager in that point.
 	Ogre::Root* root = getRoot();
-	Ogre::SceneManager* sceneManager = root->createSceneManager();
+	sceneManager = root->createSceneManager();
 
 	//Initialize shader generator.
 	Ogre::RTShader::ShaderGenerator* shaderGen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
@@ -44,28 +44,48 @@ void Game::setup(void)
     LevelManager manager;
     manager.init(sceneManager);
 
-	Ogre::SceneNode* barrelNode = sceneManager->getRootSceneNode()->createChildSceneNode();
-	barrelNode->setPosition(Ogre::Vector3(5.0f, 3.0f, 5.0f));
-	barrelNode->scale(0.5f, 0.5f, 0.5f);
-	barrel = sceneManager->createEntity("Barrel", "Barrel.mesh");
-	barrelNode->attachObject(barrel);
+	enemyNode = sceneManager->getRootSceneNode()->createChildSceneNode();
+	enemyNode->setPosition(Ogre::Vector3(5.0f, 0.0f, 5.0f));
+	Enemy = sceneManager->createEntity("Barrel", "Demon.mesh");
+	Enemy->setMaterialName("Penguin");
+	enemyNode->attachObject(Enemy);
 }
 
 void Game::update(float dt)
 {
 	m_player.update(dt);
-	if (m_player.getIsShooting())
+	if (isEnemyAlive) 
 	{
-		Ogre::Log log("ShootingTest");
-		Ogre::Ray shootingRay = m_player.getPlayerCamera()->getCameraToViewportRay(0.5f, 0.5f);
-		Ogre::Vector3 direction = shootingRay.getOrigin() + shootingRay.getDirection() * 10.0f;
-		if (CollisionManager::checkLineBox(barrel, shootingRay.getOrigin(), direction))
+		Ogre::Vector3 playerPos = m_player.getPlayerPosition();
+		Ogre::Vector3 moveDirection = (playerPos - enemyNode->getPosition());
+		moveDirection.normalise();
+		moveDirection.y = 0.0f;
+		enemyNode->translate(moveDirection * dt * 5.0f);
+		playerPos.y = 0.0f;
+		enemyNode->lookAt(playerPos, Ogre::Node::TransformSpace::TS_WORLD);
+
+		if (m_player.getIsShooting())
 		{
-			log.logMessage("Hit Barrel");
-		}
-		else
-		{
-			log.logMessage("Missed Barrel");
+			m_player.setIsShooting(false);
+			Ogre::Log log("ShootingTest");
+			Ogre::Ray shootingRay = m_player.getPlayerCamera()->getCameraToViewportRay(0.5f, 0.5f);
+			Ogre::Vector3 direction = shootingRay.getOrigin() + shootingRay.getDirection() * 100.0f;
+			if (CollisionManager::checkLineBox(Enemy, shootingRay.getOrigin(), direction))
+			{
+				enemyLives--;
+				if (enemyLives <= 0)
+				{
+					log.logMessage("Removed Enemy");
+					isEnemyAlive = false;
+					enemyNode->removeAllChildren();
+					sceneManager->destroyEntity(Enemy);
+				}
+				log.logMessage("Hit Enemy");
+			}
+			else
+			{
+				log.logMessage("Missed Enemy");
+			}
 		}
 	}
 }

@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 	Game game;
 	Time time;
 	game.initApp();
-	game.getRoot()->clearEventTimes();
+	game.getRoot()->clearEventTimes();	
 	float dt;
 	while (!game.getRoot()->endRenderingQueued())
 	{

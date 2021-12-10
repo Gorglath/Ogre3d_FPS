@@ -13,6 +13,7 @@ public:
 	void setMouseMovementInput(const OgreBites::MouseMotionEvent& evt);
 	inline Ogre::Camera* getPlayerCamera() const { return m_player_Camera; }
 	inline Ogre::SceneNode* getCameraNode() const { return m_camera_Pitch_Node; }
+	inline Ogre::Vector3 getPlayerPosition() const {return m_camera_Node->getPosition();}
 private:
 	void keyPressed(const OgreBites::KeyboardEvent& evt);
 	void keyReleased(const OgreBites::KeyboardEvent& evt);

@@ -1,0 +1,9 @@
+diff a/FPS_OGRE/FPS_OGRE/Game.cpp b/FPS_OGRE/FPS_OGRE/Game.cpp	(rejected hunks)
+@@ -9,6 +9,7 @@
+ 	//Setup the ogre application.
+ 	OgreBites::ApplicationContext::setup();
+ 
++	m_input_Manager = InputManager();
+ 	OgreBites::InputListener* input = &m_input_Manager;
+ 	//Add this object to receive input events.
+ 	addInputListener(input);
