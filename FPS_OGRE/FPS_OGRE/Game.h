@@ -6,6 +6,9 @@
 #include "InputManager.h"
 #include "Player.h"
 #include "CollisionManager.h"
+#include <vector>
+
+using std::vector;
 class Game : public OgreBites::ApplicationContext
 {
 public:
@@ -14,12 +17,11 @@ public:
 	void update(float dt);
 	bool keyPressed(const OgreBites::KeyboardEvent& evt);
 private:
-	int enemyLives = 10;
 	bool isEnemyAlive = true;
 	Ogre::SceneManager* sceneManager;
 	Player m_player{};
 	InputManager m_input_Manager{};
-	Ogre::Entity* Enemy = nullptr;
-	Ogre::SceneNode* enemyNode = nullptr;
+	vector<Ogre::Entity*> Enemys;
+	vector<Ogre::SceneNode*> enemyNodes;
 };
 

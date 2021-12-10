@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "OgreLog.h"
+#include "C:\Users\User\Downloads\Map.c"
 Game::Game() : OgreBites::ApplicationContext("Test")
 {
 }
@@ -44,50 +44,72 @@ void Game::setup(void)
     LevelManager manager;
     manager.init(sceneManager);
 
-	enemyNode = sceneManager->getRootSceneNode()->createChildSceneNode();
-	enemyNode->setPosition(Ogre::Vector3(5.0f, 0.0f, 5.0f));
-	Enemy = sceneManager->createEntity("Barrel", "Demon.mesh");
-	Enemy->setMaterialName("Penguin");
-	enemyNode->attachObject(Enemy);
+	
+	int i = -1;
+	int j = 0;
+	int d = 0;
+	Ogre::Log log("ShootingTest");
+	for (auto& color : new_piskel_data[0])
+	{
+		i++;
+		if (i == 22)
+		{
+			i = 0;
+			j++;
+		}
+		if (color == 0xff000000)
+		{
+			Ogre::SceneNode* enemyNode = sceneManager->getRootSceneNode()->createChildSceneNode();
+			enemyNode->setPosition(Ogre::Vector3(i, 0.0f,j));
+			std::string name = "Demon" + std::to_string(d);
+			std::string s = std::to_string(d);
+			log.logMessage(s);
+			Ogre::Entity* Enemy = sceneManager->createEntity(name, "Demon.mesh");
+			Enemy->setMaterialName("Penguin");
+			enemyNode->attachObject(Enemy);
+
+			Enemys.push_back(Enemy);
+			enemyNodes.push_back(enemyNode);
+		}
+		d++;
+	}
+	
 }
 
 void Game::update(float dt)
 {
 	m_player.update(dt);
-	if (isEnemyAlive) 
+	for (size_t i = 0; i < Enemys.size(); i++)
 	{
 		Ogre::Vector3 playerPos = m_player.getPlayerPosition();
-		Ogre::Vector3 moveDirection = (playerPos - enemyNode->getPosition());
+		Ogre::Vector3 moveDirection = (playerPos - enemyNodes[i]->getPosition());
 		moveDirection.normalise();
 		moveDirection.y = 0.0f;
-		enemyNode->translate(moveDirection * dt * 5.0f);
+		//enemyNodes[i]->translate(moveDirection * dt * 5.0f);
 		playerPos.y = 0.0f;
-		enemyNode->lookAt(playerPos, Ogre::Node::TransformSpace::TS_WORLD);
-
-		if (m_player.getIsShooting())
+		enemyNodes[i]->lookAt(playerPos, Ogre::Node::TransformSpace::TS_WORLD);
+	}
+	/*if (m_player.getIsShooting())
+	{
+		m_player.setIsShooting(false);
+		for (size_t i = 0; i < Enemys.size(); i++)
 		{
-			m_player.setIsShooting(false);
 			Ogre::Log log("ShootingTest");
 			Ogre::Ray shootingRay = m_player.getPlayerCamera()->getCameraToViewportRay(0.5f, 0.5f);
-			Ogre::Vector3 direction = shootingRay.getOrigin() + shootingRay.getDirection() * 100.0f;
-			if (CollisionManager::checkLineBox(Enemy, shootingRay.getOrigin(), direction))
+			Ogre::Vector3 direction = shootingRay.getOrigin() + shootingRay.getDirection() * 1000;
+			if (CollisionManager::checkLineBox(Enemys[i], shootingRay.getOrigin(), direction))
 			{
-				enemyLives--;
-				if (enemyLives <= 0)
-				{
-					log.logMessage("Removed Enemy");
-					isEnemyAlive = false;
-					enemyNode->removeAllChildren();
-					sceneManager->destroyEntity(Enemy);
-				}
+				log.logMessage("Removed Enemy");
+				enemyNodes[i]->removeAllChildren();
+				sceneManager->destroyEntity(Enemys[i]);
+				Enemys.erase(Enemys.begin() + i);
+				enemyNodes.erase(enemyNodes.begin() + i);
+				i--;
 				log.logMessage("Hit Enemy");
-			}
-			else
-			{
-				log.logMessage("Missed Enemy");
+				break;
 			}
 		}
-	}
+	}*/
 }
 
 bool Game::keyPressed(const OgreBites::KeyboardEvent& evt)
