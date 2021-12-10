@@ -35,31 +35,9 @@ bool CollisionManager::checkLineBox(Ogre::Entity* entity, Ogre::Vector3 L1, Ogre
 		|| (GetIntersection(L1.y - B2.y, L2.y - B2.y, L1, L2, Hit) && InBox(Hit, B1, B2, 2))
 		|| (GetIntersection(L1.z - B2.z, L2.z - B2.z, L1, L2, Hit) && InBox(Hit, B1, B2, 3)))
 	{
-		/*Ogre::Log log("Collision Log");
-		std::string s = "Starting point : X -" + std::to_string(L1.x) + " - " + "Y - " + std::to_string(L1.y) + " - " + "Z - " + std::to_string(L1.z);
-		log.logMessage(s);
-		s = "Direction point : X -" + std::to_string(L2.x) + " - " + "Y - " + std::to_string(L2.y) + " - " + "Z - " + std::to_string(L2.z);
-		log.logMessage(s);
-		s = "Box min point : X -" + std::to_string(B1.x) + " - " + "Y - " + std::to_string(B1.y) + " - " + "Z - " + std::to_string(B1.z);
-		log.logMessage(s);
-		s = "Box max point : X -" + std::to_string(B2.x) + " - " + "Y - " + std::to_string(B2.y) + " - " + "Z - " + std::to_string(B2.z);
-		log.logMessage(s);
-		s = "Intersection point : X -" + std::to_string(Hit.x) + " - " + "Y - " + std::to_string(Hit.y) + " - " + "Z - " + std::to_string(Hit.z);
-		log.logMessage(s);*/
 		return true;
 	}
 
-		/*Ogre::Log log("Collision Log");
-		std::string s = "Starting point : X -" + std::to_string(L1.x) + " - " + "Y - " + std::to_string(L1.y) + " - " + "Z - " + std::to_string(L1.z);
-		log.logMessage(s);
-		s = "Direction point : X -" + std::to_string(L2.x) + " - " + "Y - " + std::to_string(L2.y) + " - " + "Z - " + std::to_string(L2.z);
-		log.logMessage(s);
-		s = "Box min point : X -" + std::to_string(B1.x) + " - " + "Y - " + std::to_string(B1.y) + " - " + "Z - " + std::to_string(B1.z);
-		log.logMessage(s);
-		s = "Box max point : X -" + std::to_string(B2.x) + " - " + "Y - " + std::to_string(B2.y) + " - " + "Z - " + std::to_string(B2.z);
-		log.logMessage(s);
-		s = "Intersection point : X -" + std::to_string(Hit.x) + " - " + "Y - " + std::to_string(Hit.y) + " - " + "Z - " + std::to_string(Hit.z);
-		log.logMessage(s);*/
 	return false;
 }
 int inline CollisionManager::InBox(Ogre::Vector3 Hit, Ogre::Vector3 B1, Ogre::Vector3 B2, const int Axis) {
