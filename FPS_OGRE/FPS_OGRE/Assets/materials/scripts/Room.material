@@ -1,0 +1,13 @@
+material Room
+{
+    technique
+    {
+        pass
+        {
+		    texture_unit
+			{
+			    texture Room.jpg
+			}
+        }
+    }
+}

@@ -1,0 +1,13 @@
+material Gun
+{
+    technique
+    {
+        pass
+        {
+		    texture_unit
+			{
+			    texture Gun.jpg
+			}
+        }
+    }
+}

@@ -4,12 +4,12 @@ void PlayerMovement::init(Ogre::SceneManager* sceneManager)
 {
     //Create a new node to handle the camera.
     m_camera_Node = sceneManager->getRootSceneNode()->createChildSceneNode();
-    m_camera_Node->setPosition(0, 5, 15);
+    m_camera_Node->setPosition(0, 5,0);
+
 
     m_camera_Yaw_Node = m_camera_Node->createChildSceneNode();
 
     m_camera_Pitch_Node = m_camera_Yaw_Node->createChildSceneNode();
-
     // create the camera and attach it to the camera node.
     m_player_Camera = sceneManager->createCamera("myCam");
     m_player_Camera->setNearClipDistance(0.1f); 
@@ -214,7 +214,7 @@ void PlayerMovement::setMouseMovementInput(const OgreBites::MouseMotionEvent& ev
     m_camera_Yaw_Node->yaw(Ogre::Degree(-0.5f * evt.xrel), Ogre::Node::TS_PARENT);
     float deltaPitch = -0.5f * evt.yrel;
     // bound the pitch
-    if (!(m_camera_Pivot_Pitch + deltaPitch > 25 && deltaPitch > 0) &&
+    if (!(m_camera_Pivot_Pitch + deltaPitch > 65 && deltaPitch > 0) &&
         !(m_camera_Pivot_Pitch + deltaPitch < -60 && deltaPitch < 0))
     {
         m_camera_Pitch_Node->pitch(Ogre::Degree(deltaPitch), Ogre::Node::TS_LOCAL);

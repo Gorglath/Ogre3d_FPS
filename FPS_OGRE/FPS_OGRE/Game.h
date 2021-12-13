@@ -21,7 +21,5 @@ private:
 	Ogre::SceneManager* sceneManager;
 	Player m_player{};
 	InputManager m_input_Manager{};
-	vector<Ogre::Entity*> Enemys;
-	vector<Ogre::SceneNode*> enemyNodes;
 };
 
