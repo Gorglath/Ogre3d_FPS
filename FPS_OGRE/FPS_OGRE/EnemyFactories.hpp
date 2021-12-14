@@ -1,20 +1,22 @@
 #pragma once
 #include <Ogre.h>
-
+#include "Enemy.h"
 using namespace Ogre;
 class EnemyFactories
 {
 public:
-	static SceneNode* CreateBaseEnemy(SceneManager* sceneManager, Vector3& position, Vector3& scale, const char* name)
+	static Enemy* CreateBaseEnemy(SceneManager* sceneManager, Vector3& position, Vector3& scale, const char* name)
 	{
+		Enemy enemy;
 		SceneNode* enemyNode = sceneManager->getRootSceneNode()->createChildSceneNode();
 		enemyNode->setPosition(position);
-
-		Entity* enemy = sceneManager->createEntity(name, "Demon.mesh");
-		enemy->setMaterialName("Demon");
-		enemyNode->attachObject(enemy);
+		Entity* enemyMesh = sceneManager->createEntity(name, "Demon.mesh");
+		enemyMesh->setMaterialName("Demon");
+		enemyNode->attachObject(enemyMesh);
 		enemyNode->setScale(scale);
 
-		return enemyNode;
+		enemy.setEnemyNode(enemyNode);
+		enemy.setEnemyMesh(enemyMesh);
+		return &enemy;
 	}
 };
