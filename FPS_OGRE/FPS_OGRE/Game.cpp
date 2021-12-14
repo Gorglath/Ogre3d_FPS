@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "C:\Users\User\Downloads\Map.c"
+#include "EnemyFactories.hpp"
 Game::Game() : OgreBites::ApplicationContext("Test")
 {
 }
@@ -34,6 +34,10 @@ void Game::setup(void)
 	//Ogre::ColourValue ambientColor(1.0f, 1.0f, 1.0f, 1.0f);
 	//sceneManager->setAmbientLight(ambientColor);
 
+	Ogre::Vector3 position(5, 0, 5);
+	Ogre::Vector3 scale(1, 1, 1);
+	std::string name = "Demon1";
+	m_enemyNode = EnemyFactories::CreateBaseEnemy(sceneManager,position,scale,name.c_str());
 	sceneManager->setAmbientLight(Ogre::ColourValue(1.0f, 1.0f, 1.0f));
 	//Initialize the player.
     m_player.init(sceneManager);
@@ -53,6 +57,15 @@ void Game::setup(void)
 void Game::update(float dt)
 {
 	m_player.update(dt);
+	m_counter += dt;
+	if (m_counter >= 5.0f)
+	{
+		m_counter = -10000;
+		Ogre::MovableObject* enemy = m_enemyNode->getAttachedObject("Demon1");
+		sceneManager->destroyEntity(enemy);
+		sceneManager->destroySceneNode(m_enemyNode);
+
+	}
 	//for (size_t i = 0; i < Enemys.size(); i++)
 	//{
 	//	Ogre::Vector3 playerPos = m_player.getPlayerPosition();
