@@ -17,10 +17,9 @@ public:
 	void update(float dt);
 	bool keyPressed(const OgreBites::KeyboardEvent& evt);
 private:
-	float m_counter = 0.0f;
 	Ogre::SceneManager* sceneManager{};
 	Player m_player{};
+	LevelManager m_levelManager{};
 	InputManager m_input_Manager{};
-	Ogre::SceneNode* m_enemyNode{};
 };
 
