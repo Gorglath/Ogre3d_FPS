@@ -29,20 +29,36 @@ void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3& 
 
 void EnemiesManager::damageEnemy(SceneManager* sceneManager, Ray& shootingRay)
 {
+	int closestEnemyIndex = 0;
+	bool initializedFirstEnemyHit = false;
 	Vector3 direction = shootingRay.getOrigin() + shootingRay.getDirection() * 100.0f;
 	for (size_t i = 0; i < m_enemies.size(); i++)
 	{
 		if (CollisionManager::checkLineBox(m_enemies[i]->getEnemyMesh(), shootingRay.getOrigin(), direction))
 		{
-			m_enemies[i]->takeDamage(1);
-			if (m_enemies[i]->getHealth() <= 0)
+			if (!initializedFirstEnemyHit)
 			{
-				m_enemies[i]->clear(sceneManager);
-				delete m_enemies[i];
-				m_enemies.erase(m_enemies.begin() + i);
-				i--;
+				initializedFirstEnemyHit = true;
+				closestEnemyIndex = i;
+			}
+			else
+			{
+				float closestDistance = m_enemies[closestEnemyIndex]->getEnemyPosition().distance(shootingRay.getOrigin());
+				float currentEnemyDistance = m_enemies[i]->getEnemyPosition().distance(shootingRay.getOrigin());
+				if (closestDistance > currentEnemyDistance)
+				{
+					closestEnemyIndex = i;
+				}
 			}
 		}
+	}
+	
+	m_enemies[closestEnemyIndex]->takeDamage(1);
+	if (m_enemies[closestEnemyIndex]->getHealth() <= 0)
+	{
+		m_enemies[closestEnemyIndex]->clear(sceneManager);
+		delete m_enemies[closestEnemyIndex];
+		m_enemies.erase(m_enemies.begin() + closestEnemyIndex);
 	}
 }
 
