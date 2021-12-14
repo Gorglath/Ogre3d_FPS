@@ -61,7 +61,6 @@ void Game::update(float dt)
 	//for (size_t i = 0; i < Enemys.size(); i++)
 	//{
 	//	Ogre::Vector3 playerPos = m_player.getPlayerPosition();
-	//	Ogre::Vector3 moveDirection = (playerPos - enemyNodes[i]->getPosition());
 	//	moveDirection.normalise();
 	//	moveDirection.y = 0.0f;
 	//	//enemyNodes[i]->translate(moveDirection * dt * 5.0f);

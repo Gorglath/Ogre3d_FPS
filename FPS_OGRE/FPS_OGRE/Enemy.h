@@ -8,7 +8,7 @@ public:
 	Enemy() = default;
 	~Enemy() = default;
 	virtual void init(int healthAmount, float movementSpeed) { m_health = healthAmount; m_movement_Speed = movementSpeed; }
-	virtual void update(Vector3 & targetPosition) {}
+	virtual void update(Vector3 & targetPosition,float dt) {}
 	virtual void takeDamage(int amount) { m_health -= amount; }
 	void setEnemyNode(SceneNode* enemyNode) { m_enemy_Node = enemyNode; }
 	void setEnemyMesh(Entity* enemyMesh) { m_enemy_Mesh = enemyMesh; }
@@ -24,7 +24,6 @@ public:
 protected:
 	int m_health{ 10 };
 	float m_movement_Speed{ 5 };
-private:
 	SceneNode* m_enemy_Node{};
 	Entity* m_enemy_Mesh{};
 };

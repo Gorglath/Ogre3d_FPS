@@ -20,6 +20,11 @@ void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3& 
 			spawnEnemy(sceneManager);
 		}
 	}
+
+	for (auto& enemy : m_enemies)
+	{
+		enemy->update(playerPos,dt);
+	}
 }
 
 void EnemiesManager::damageEnemy(SceneManager* sceneManager, Ray& shootingRay)
@@ -66,6 +71,6 @@ void EnemiesManager::spawnEnemy(SceneManager* sceneManager)
 
 	Ogre::Vector3 enemyScale(1.0f, 1.0f, 1.0f);
 	std::string enemyName = "Demon" + std::to_string(m_current_Enemy_Number);
-	m_enemies.push_back(EnemyFactories::CreateBaseEnemy(sceneManager, enemyPos, enemyScale, enemyName.c_str()));
+	m_enemies.push_back(EnemyFactories::CreateSimpleEnemy(sceneManager, enemyPos, enemyScale, enemyName.c_str()));
 	m_current_Enemy_Number++;
 }
