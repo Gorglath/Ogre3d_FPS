@@ -71,6 +71,17 @@ void EnemiesManager::spawnEnemy(SceneManager* sceneManager)
 
 	Ogre::Vector3 enemyScale(1.0f, 1.0f, 1.0f);
 	std::string enemyName = "Demon" + std::to_string(m_current_Enemy_Number);
-	m_enemies.push_back(EnemyFactories::CreateSimpleEnemy(sceneManager, enemyPos, enemyScale, enemyName.c_str()));
+	Enemy* enemy = EnemyFactories::CreateSimpleEnemy(sceneManager, enemyPos, enemyScale, enemyName.c_str());
+
+	switch (enemy->getEnemyType())
+	{
+	case EnemyType::SIMPLE:
+		enemy->init(5, 20);
+		break;
+	default:
+		enemy->init(3, 5);
+		break;
+	}
+	m_enemies.push_back(enemy);
 	m_current_Enemy_Number++;
 }

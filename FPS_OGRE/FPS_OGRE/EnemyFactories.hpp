@@ -23,6 +23,8 @@ public:
 	static SimpleEnemy* CreateSimpleEnemy(SceneManager* sceneManager, Vector3& position, Vector3& scale, const char* name)
 	{
 		SimpleEnemy* enemy = new SimpleEnemy();
+		enemy->setEnemyType(EnemyType::SIMPLE);
+
 		SceneNode* enemyNode = sceneManager->getRootSceneNode()->createChildSceneNode();
 		enemyNode->setPosition(position);
 		Entity* enemyMesh = sceneManager->createEntity(name, "Demon.mesh");
