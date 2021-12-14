@@ -1,9 +1,10 @@
 #include "EnemiesManager.h"
 #include <random>
 #include "CollisionManager.h"
-void EnemiesManager::init(int numberOfEnemiesToSpawn, int maxTimeBetweenSpawns, int minTimeBetweenSpawns)
+void EnemiesManager::init(int numberOfSimpleEnemiesToSpawn, int numberOfFlyingEnemiesToSpawn, int maxTimeBetweenSpawns, int minTimeBetweenSpawns)
 {
-	m_number_Of_Enemies_To_Spawn = numberOfEnemiesToSpawn;
+	m_number_Of_Simple_Enemies_To_Spawn = numberOfSimpleEnemiesToSpawn;
+	m_number_Of_Flying_Enemies_To_Spawn = numberOfFlyingEnemiesToSpawn;
 	m_max_Time_Between_Spawns = maxTimeBetweenSpawns;
 	m_min_Time_Between_Spawns = minTimeBetweenSpawns;
 	m_time_Until_Next_Spawn = (rand() % m_max_Time_Between_Spawns + m_min_Time_Between_Spawns);
@@ -14,10 +15,38 @@ void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3& 
 	m_spawn_Timer += dt;
 	if (m_spawn_Timer >= m_time_Until_Next_Spawn)
 	{
-		if (m_number_Of_Enemies_To_Spawn > 0)
+		int randomType = rand() % 2;
+		if (randomType == 1)
 		{
-			m_number_Of_Enemies_To_Spawn--;
-			spawnEnemy(sceneManager);
+			if (m_number_Of_Simple_Enemies_To_Spawn > 0)
+			{
+				m_number_Of_Simple_Enemies_To_Spawn--;
+				spawnEnemy(sceneManager,EnemyType::SIMPLE);
+			}
+			else
+			{
+				if (m_number_Of_Flying_Enemies_To_Spawn > 0)
+				{
+					m_number_Of_Flying_Enemies_To_Spawn--;
+					spawnEnemy(sceneManager, EnemyType::FLYING);
+				}
+			}
+		}
+		else
+		{
+			if (m_number_Of_Flying_Enemies_To_Spawn > 0)
+			{
+				m_number_Of_Flying_Enemies_To_Spawn--;
+				spawnEnemy(sceneManager, EnemyType::FLYING);
+			}
+			else
+			{
+				if (m_number_Of_Simple_Enemies_To_Spawn > 0)
+				{
+					m_number_Of_Simple_Enemies_To_Spawn--;
+					spawnEnemy(sceneManager, EnemyType::SIMPLE);
+				}
+			}
 		}
 	}
 
@@ -29,16 +58,16 @@ void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3& 
 
 void EnemiesManager::damageEnemy(SceneManager* sceneManager, Ray& shootingRay)
 {
-	int closestEnemyIndex = 0;
-	bool initializedFirstEnemyHit = false;
+	int closestEnemyIndex = -1;
+	bool hitFirstEnemy = false;
 	Vector3 direction = shootingRay.getOrigin() + shootingRay.getDirection() * 100.0f;
 	for (size_t i = 0; i < m_enemies.size(); i++)
 	{
 		if (CollisionManager::checkLineBox(m_enemies[i]->getEnemyMesh(), shootingRay.getOrigin(), direction))
 		{
-			if (!initializedFirstEnemyHit)
+			if (!hitFirstEnemy)
 			{
-				initializedFirstEnemyHit = true;
+				hitFirstEnemy = true;
 				closestEnemyIndex = i;
 			}
 			else
@@ -53,19 +82,23 @@ void EnemiesManager::damageEnemy(SceneManager* sceneManager, Ray& shootingRay)
 		}
 	}
 	
-	m_enemies[closestEnemyIndex]->takeDamage(1);
-	if (m_enemies[closestEnemyIndex]->getHealth() <= 0)
+	if (hitFirstEnemy)
 	{
-		m_enemies[closestEnemyIndex]->clear(sceneManager);
-		delete m_enemies[closestEnemyIndex];
-		m_enemies.erase(m_enemies.begin() + closestEnemyIndex);
+		m_enemies[closestEnemyIndex]->takeDamage(1);
+		if (m_enemies[closestEnemyIndex]->getHealth() <= 0)
+		{
+			m_enemies[closestEnemyIndex]->clear(sceneManager);
+			delete m_enemies[closestEnemyIndex];
+			m_enemies.erase(m_enemies.begin() + closestEnemyIndex);
+		}
 	}
 }
 
-void EnemiesManager::spawnEnemy(SceneManager* sceneManager)
+void EnemiesManager::spawnEnemy(SceneManager* sceneManager,EnemyType type)
 {
 	m_spawn_Timer = 0.0f;
 	m_time_Until_Next_Spawn = (rand() % m_max_Time_Between_Spawns + m_min_Time_Between_Spawns);
+
 	bool inverseXPosition = (rand() % 10 < 5);
 	bool inverseYPosition = (rand() % 10 > 5);
 
@@ -83,21 +116,28 @@ void EnemiesManager::spawnEnemy(SceneManager* sceneManager)
 	}
 
 	enemyYPosition *= ((inverseYPosition) ? -1 : 1);
-	Vector3 enemyPos(enemyXPosition, 0.0f, enemyYPosition);
+	Vector3 enemyPos(enemyXPosition, ((type == EnemyType::FLYING)? 50.0f:0.0f), enemyYPosition);
 
 	Ogre::Vector3 enemyScale(1.0f, 1.0f, 1.0f);
 	std::string enemyName = "Demon" + std::to_string(m_current_Enemy_Number);
-	Enemy* enemy = EnemyFactories::CreateSimpleEnemy(sceneManager, enemyPos, enemyScale, enemyName.c_str());
-
-	switch (enemy->getEnemyType())
+	Enemy* enemy = nullptr;
+	switch (type)
 	{
+	case EnemyType::FLYING:
+		enemy = EnemyFactories::CreateFlyingEnemy(sceneManager, enemyPos, enemyScale, enemyName.c_str());
+		enemy->init(3, 10);
+		break;
 	case EnemyType::SIMPLE:
+		enemy = EnemyFactories::CreateSimpleEnemy(sceneManager, enemyPos, enemyScale, enemyName.c_str());
 		enemy->init(5, 20);
 		break;
 	default:
+		enemy = EnemyFactories::CreateBaseEnemy(sceneManager, enemyPos, enemyScale, enemyName.c_str());
 		enemy->init(3, 5);
 		break;
 	}
+
+	
 	m_enemies.push_back(enemy);
 	m_current_Enemy_Number++;
 }

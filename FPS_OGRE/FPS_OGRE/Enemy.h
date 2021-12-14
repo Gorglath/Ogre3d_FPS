@@ -6,7 +6,8 @@ using namespace Ogre;
 enum class EnemyType 
 {
 	NONE,
-	SIMPLE
+	SIMPLE,
+	FLYING
 };
 class Enemy
 {

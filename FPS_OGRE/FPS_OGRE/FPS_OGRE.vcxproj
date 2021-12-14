@@ -145,6 +145,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="EnemiesManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FlyingEnemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LevelManager.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="EnemiesManager.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyFactories.hpp" />
+    <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LevelManager.h" />

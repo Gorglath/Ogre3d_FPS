@@ -11,12 +11,13 @@ class EnemiesManager
 public:
 	EnemiesManager() = default;
 	~EnemiesManager() = default;
-	void init(int numberOfEnemiesToSpawn, int maxTimeBetweenSpawns, int minTimeBetweenSpawns);
+	void init(int numberOfSimpleEnemiesToSpawn,int numberOfFlyingEnemiesToSpawn, int maxTimeBetweenSpawns, int minTimeBetweenSpawns);
 	void update(SceneManager* sceneManager, float dt, Vector3& playerPos);
 	void damageEnemy(SceneManager* sceneManager, Ray& shootingRay);
 private:
-	void spawnEnemy(SceneManager* sceneManager);
-	int m_number_Of_Enemies_To_Spawn{ 10 };
+	void spawnEnemy(SceneManager* sceneManager,EnemyType type);
+	int m_number_Of_Simple_Enemies_To_Spawn{ 10 };
+	int m_number_Of_Flying_Enemies_To_Spawn{ 10 };
 	int m_max_Time_Between_Spawns{ 10};
 	int m_min_Time_Between_Spawns{ 5 };
 	int m_time_Until_Next_Spawn{ 0 };
