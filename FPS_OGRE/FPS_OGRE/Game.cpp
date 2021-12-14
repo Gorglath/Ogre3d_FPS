@@ -50,7 +50,14 @@ void Game::setup(void)
 void Game::update(float dt)
 {
 	m_player.update(dt);
-	m_levelManager.update(sceneManager, dt);
+	Ogre::Vector3 playerPos = m_player.getPlayerPosition();
+	m_levelManager.update(sceneManager, dt,playerPos);
+	if (m_player.getIsShooting())
+	{
+		m_player.setIsShooting(false);
+		Ogre::Ray shootingRay = m_player.getPlayerCamera()->getCameraToViewportRay(0.5f, 0.5f);
+		m_levelManager.checkIfHitEnemy(sceneManager, shootingRay);
+	}
 	//for (size_t i = 0; i < Enemys.size(); i++)
 	//{
 	//	Ogre::Vector3 playerPos = m_player.getPlayerPosition();
@@ -67,7 +74,7 @@ void Game::update(float dt)
 	//	for (size_t i = 0; i < Enemys.size(); i++)
 	//	{
 	//		Ogre::Log log("ShootingTest");
-	//		Ogre::Ray shootingRay = m_player.getPlayerCamera()->getCameraToViewportRay(0.5f, 0.5f);
+	//		
 	//		Ogre::Vector3 direction = shootingRay.getOrigin() + shootingRay.getDirection() * 1000;
 	//		if (CollisionManager::checkLineBox(Enemys[i], shootingRay.getOrigin(), direction))
 	//		{

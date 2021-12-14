@@ -12,7 +12,8 @@ public:
 	EnemiesManager() = default;
 	~EnemiesManager() = default;
 	void init(int numberOfEnemiesToSpawn, int maxTimeBetweenSpawns, int minTimeBetweenSpawns);
-	void update(SceneManager* sceneManager, float dt);
+	void update(SceneManager* sceneManager, float dt, Vector3& playerPos);
+	void damageEnemy(SceneManager* sceneManager, Ray& shootingRay);
 private:
 	void spawnEnemy(SceneManager* sceneManager);
 	int m_number_Of_Enemies_To_Spawn{ 10 };

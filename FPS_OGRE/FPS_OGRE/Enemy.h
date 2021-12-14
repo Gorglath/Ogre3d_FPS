@@ -12,6 +12,8 @@ public:
 	virtual void takeDamage(int amount) { m_health -= amount; }
 	void setEnemyNode(SceneNode* enemyNode) { m_enemy_Node = enemyNode; }
 	void setEnemyMesh(Entity* enemyMesh) { m_enemy_Mesh = enemyMesh; }
+	Vector3 getEnemyPosition() const { return m_enemy_Node->getPosition(); }
+	Entity* getEnemyMesh() const { return m_enemy_Mesh; }
 	int getHealth() const { return m_health; }
 	void clear(SceneManager* sceneManager) 
 	{
