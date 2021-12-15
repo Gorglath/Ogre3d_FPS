@@ -131,6 +131,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\User\Desktop\Libraries\C++\SDL\SDL2\SDL2-2.0.16\include;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\out\build\include;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\Components\RTShaderSystem\include;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\Components\Bites\include;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\OgreMain\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -164,7 +165,9 @@
     <ClInclude Include="FlyingEnemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="LevelParser.hpp" />
     <ClInclude Include="MouseButtonInput.hpp" />
     <ClInclude Include="MouseMovementInput.hpp" />
     <ClInclude Include="KeyboardInput.hpp" />

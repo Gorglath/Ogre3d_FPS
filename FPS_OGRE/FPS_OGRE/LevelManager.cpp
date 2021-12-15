@@ -1,6 +1,6 @@
 #include "LevelManager.h"
 
-void LevelManager::init(Ogre::SceneManager* sceneManager)
+void LevelManager::init(Ogre::SceneManager* sceneManager, int levelNumber)
 {
 	//Create the room.
 	Ogre::SceneNode* roomNode = sceneManager->getRootSceneNode()->createChildSceneNode();
@@ -14,8 +14,16 @@ void LevelManager::init(Ogre::SceneManager* sceneManager)
 
 	//Add the entity to the scene.
 	roomNode->attachObject(floor);
-	
-	m_enemies_Manager.init(10,10, 5, 2);
+	LevelParser parser;
+	if (parser.tryParseLevel(levelNumber))
+	{
+		int numberOfSimpleEnemies = parser.getNumberOfSimpleEnemies();
+		int numberOfFlyingEnemies = parser.getNumberOfFlyingEnemies();
+		int maxSpawnTime = parser.getMaxSpawnTime();
+		int minSpawnTime = parser.getMinSpawnTime();
+		int difficulty = parser.getDifficulty();//TODO: add difficulty option.
+		m_enemies_Manager.init(numberOfSimpleEnemies, numberOfFlyingEnemies, maxSpawnTime, minSpawnTime);
+	}
 }
 
 void LevelManager::update(Ogre::SceneManager* sceneManager, float dt, Ogre::Vector3& playerPos)

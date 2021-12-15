@@ -40,7 +40,7 @@ void Game::setup(void)
     getRenderWindow()->addViewport(m_player.getPlayerCamera());
 	
 	//Load the base level.
-    m_levelManager.init(sceneManager);
+    m_levelManager.init(sceneManager,1);
 
 	
 	

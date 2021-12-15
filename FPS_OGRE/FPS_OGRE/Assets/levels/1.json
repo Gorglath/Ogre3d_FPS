@@ -1,0 +1,8 @@
+{
+    "id": 1,
+    "simpleEnemies": 10,
+    "flyingEnemies": 10,
+    "maxSpawnTime": 5,
+    "minSpawnTime": 3,
+    "difficulty": 0 
+}
