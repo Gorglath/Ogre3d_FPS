@@ -12,6 +12,7 @@ public:
 	void checkIfHitEnemy(Ogre::SceneManager* sceneManager, Ogre::Ray& shootingRay);
 	bool checkIfPlayerGotHit(Ogre::SceneManager* sceneManager, Ogre::Vector3 playerPos);
 	void clear(Ogre::SceneManager* sceneManager);
+	inline bool getHasEnemyLeftToSpawn() const { return m_enemies_Manager.hasEnemyLeftToSpawn(); }
 private:
 	EnemiesManager m_enemies_Manager{};
 };

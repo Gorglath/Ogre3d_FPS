@@ -16,6 +16,7 @@ public:
 	void damageEnemy(SceneManager* sceneManager, Ray& shootingRay);
 	bool checkIfCollidingWithPosition(SceneManager* sceneManager, Vector3 targetPosition);
 	void clear(SceneManager* sceneManager);
+	inline bool hasEnemyLeftToSpawn() const { return (m_number_Of_Flying_Enemies_To_Spawn > 0 || m_number_Of_Flying_Enemies_To_Spawn > 0); }
 private:
 	void spawnEnemy(SceneManager* sceneManager,EnemyType type);
 	int m_number_Of_Simple_Enemies_To_Spawn{ 10 };

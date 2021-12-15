@@ -12,7 +12,6 @@ void Game::setup(void)
 	OgreBites::InputListener* input = &m_input_Manager;
 	//Add this object to receive input events.
 	addInputListener(input);
-
 	KeyboardInput* playerKeyboardInput = &m_player;
 	m_input_Manager.addKeyboardInputListener(playerKeyboardInput);
 
@@ -43,22 +42,20 @@ void Game::update(float dt)
 	if (m_levelManager.checkIfPlayerGotHit(m_scene_Manager, playerPos))
 	{
 		m_playerHealth--;
-		if (m_playerHealth <= 0)
+		if (m_playerHealth <= 0 || !m_levelManager.getHasEnemyLeftToSpawn())
 		{
 			m_playerHealth = 3;
 			restart();
 		}
 	}
+
+	if (!m_levelManager.getHasEnemyLeftToSpawn())
+	{
+		m_currentLevel++;
+		restart();
+	}
 }
 
-bool Game::keyPressed(const OgreBites::KeyboardEvent& evt)
-{
-	if (evt.keysym.sym == OgreBites::SDLK_ESCAPE)
-	{
-		getRoot()->queueEndRendering();
-	}
-	return true;
-}
 
 void Game::restart()
 {
@@ -94,5 +91,5 @@ void Game::initializeGame()
 	getRenderWindow()->addViewport(m_player.getPlayerCamera());
 
 	//Load the base level.
-	m_levelManager.init(m_scene_Manager, 1);
+	m_levelManager.init(m_scene_Manager, m_currentLevel);
 }
