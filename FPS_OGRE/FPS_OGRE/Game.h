@@ -17,7 +17,10 @@ public:
 	void update(float dt);
 	bool keyPressed(const OgreBites::KeyboardEvent& evt);
 private:
-	Ogre::SceneManager* sceneManager{};
+	void restart();
+	void initializeGame();
+	int m_playerHealth{ 3 };
+	Ogre::SceneManager* m_scene_Manager{};
 	Player m_player{};
 	LevelManager m_levelManager{};
 	InputManager m_input_Manager{};

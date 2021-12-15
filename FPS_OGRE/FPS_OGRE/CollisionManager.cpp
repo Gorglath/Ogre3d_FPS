@@ -5,9 +5,14 @@
 using std::swap;
 using std::min;
 using std::max;
-bool CollisionManager::checkCollision(Ogre::Entity* lEntity, Ogre::Entity* rEntity)
+bool CollisionManager::checkCollisionWithEntity(Ogre::Entity* lEntity, Ogre::Entity* rEntity)
 {
-    return lEntity->getBoundingBox().contains(rEntity->getBoundingBox());
+    return lEntity->getWorldBoundingBox().contains(rEntity->getBoundingBox());
+}
+
+bool CollisionManager::checkCollisionWithPoint(Ogre::Entity* entity, Ogre::Vector3& position)
+{
+	return entity->getWorldBoundingBox().contains(position);
 }
 
 bool CollisionManager::checkLineBox(Ogre::Entity* entity, Ogre::Vector3 L1, Ogre::Vector3 L2)

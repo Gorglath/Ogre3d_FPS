@@ -4,7 +4,6 @@ void PlayerMovement::init(Ogre::SceneManager* sceneManager)
 {
     //Create a new node to handle the camera.
     m_camera_Node = sceneManager->getRootSceneNode()->createChildSceneNode();
-    m_camera_Node->setPosition(0, 5,0);
 
 
     m_camera_Yaw_Node = m_camera_Node->createChildSceneNode();
@@ -15,6 +14,7 @@ void PlayerMovement::init(Ogre::SceneManager* sceneManager)
     m_player_Camera->setNearClipDistance(0.1f); 
     m_player_Camera->setAutoAspectRatio(true);
     m_camera_Pitch_Node->attachObject(m_player_Camera);
+    m_camera_Node->setPosition(0, 5, 0);
     SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
@@ -221,4 +221,16 @@ void PlayerMovement::setMouseMovementInput(const OgreBites::MouseMotionEvent& ev
         m_camera_Pivot_Pitch += deltaPitch;
     }
 
+}
+
+void PlayerMovement::clear(Ogre::SceneManager* sceneManager)
+{
+    m_camera_Pitch_Node->detachAllObjects();
+    m_camera_Yaw_Node->detachAllObjects();
+    m_camera_Node->detachAllObjects();
+
+    sceneManager->destroyCamera(m_player_Camera);
+    sceneManager->destroySceneNode(m_camera_Node);
+    sceneManager->destroySceneNode(m_camera_Yaw_Node);
+    sceneManager->destroySceneNode(m_camera_Pitch_Node);
 }

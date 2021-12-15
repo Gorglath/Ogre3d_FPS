@@ -12,8 +12,10 @@ public:
 	EnemiesManager() = default;
 	~EnemiesManager() = default;
 	void init(int numberOfSimpleEnemiesToSpawn,int numberOfFlyingEnemiesToSpawn, int maxTimeBetweenSpawns, int minTimeBetweenSpawns);
-	void update(SceneManager* sceneManager, float dt, Vector3& playerPos);
+	void update(SceneManager* sceneManager, float dt, Vector3 playerPos);
 	void damageEnemy(SceneManager* sceneManager, Ray& shootingRay);
+	bool checkIfCollidingWithPosition(SceneManager* sceneManager, Vector3 targetPosition);
+	void clear(SceneManager* sceneManager);
 private:
 	void spawnEnemy(SceneManager* sceneManager,EnemyType type);
 	int m_number_Of_Simple_Enemies_To_Spawn{ 10 };

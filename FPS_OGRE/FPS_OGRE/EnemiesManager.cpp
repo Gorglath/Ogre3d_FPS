@@ -10,7 +10,7 @@ void EnemiesManager::init(int numberOfSimpleEnemiesToSpawn, int numberOfFlyingEn
 	m_time_Until_Next_Spawn = (rand() % m_max_Time_Between_Spawns + m_min_Time_Between_Spawns);
 }
 
-void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3& playerPos)
+void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3 playerPos)
 {
 	m_spawn_Timer += dt;
 	if (m_spawn_Timer >= m_time_Until_Next_Spawn)
@@ -91,6 +91,31 @@ void EnemiesManager::damageEnemy(SceneManager* sceneManager, Ray& shootingRay)
 			delete m_enemies[closestEnemyIndex];
 			m_enemies.erase(m_enemies.begin() + closestEnemyIndex);
 		}
+	}
+}
+
+bool EnemiesManager::checkIfCollidingWithPosition(SceneManager* sceneManager, Vector3 targetPosition)
+{
+	for (size_t i = 0; i < m_enemies.size(); i++)
+	{
+		if (CollisionManager::checkCollisionWithPoint(m_enemies[i]->getEnemyMesh(), targetPosition))
+		{
+				m_enemies[i]->clear(sceneManager);
+				delete m_enemies[i];
+				m_enemies.erase(m_enemies.begin() + i);
+				return true;
+		}
+	}
+	return false;
+}
+
+void EnemiesManager::clear(SceneManager* sceneManager)
+{
+	for (size_t i = 0; i < m_enemies.size(); i++)
+	{
+		m_enemies[0]->clear(sceneManager);
+		delete m_enemies[0];
+		m_enemies.erase(m_enemies.begin());
 	}
 }
 

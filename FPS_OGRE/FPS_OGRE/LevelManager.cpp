@@ -26,7 +26,7 @@ void LevelManager::init(Ogre::SceneManager* sceneManager, int levelNumber)
 	}
 }
 
-void LevelManager::update(Ogre::SceneManager* sceneManager, float dt, Ogre::Vector3& playerPos)
+void LevelManager::update(Ogre::SceneManager* sceneManager, float dt, Ogre::Vector3 playerPos)
 {
 	m_enemies_Manager.update(sceneManager, dt,playerPos);
 }
@@ -34,4 +34,14 @@ void LevelManager::update(Ogre::SceneManager* sceneManager, float dt, Ogre::Vect
 void LevelManager::checkIfHitEnemy(Ogre::SceneManager* sceneManager, Ogre::Ray& shootingRay)
 {
 	m_enemies_Manager.damageEnemy(sceneManager, shootingRay);
+}
+
+bool LevelManager::checkIfPlayerGotHit(Ogre::SceneManager* sceneManager, Ogre::Vector3 playerPos)
+{
+	return m_enemies_Manager.checkIfCollidingWithPosition(sceneManager,playerPos);
+}
+
+void LevelManager::clear(Ogre::SceneManager* sceneManager)
+{
+	m_enemies_Manager.clear(sceneManager);
 }

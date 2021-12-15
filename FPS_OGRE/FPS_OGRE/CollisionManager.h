@@ -3,7 +3,8 @@
 class CollisionManager
 {
 public:
-	static bool checkCollision(Ogre::Entity* lEntity, Ogre::Entity* rEntity);
+	static bool checkCollisionWithEntity(Ogre::Entity* lEntity, Ogre::Entity* rEntity);
+	static bool checkCollisionWithPoint(Ogre::Entity* entity, Ogre::Vector3& position);
 	static bool checkLineBox(Ogre::Entity* entity, Ogre::Vector3 lineStart, Ogre::Vector3 lineDirection);
 private:
 	CollisionManager();

@@ -24,3 +24,9 @@ void Player::setMouseButtonInput(const OgreBites::MouseButtonEvent& evt)
 {
     m_player_Weapon.setMouseButtonInput(evt);
 }
+
+void Player::clear(Ogre::SceneManager* sceneManager)
+{
+    m_player_Movement.clear(sceneManager);
+    m_player_Weapon.clear(sceneManager);
+}

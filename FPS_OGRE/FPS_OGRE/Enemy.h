@@ -14,11 +14,7 @@ class Enemy
 public:
 	Enemy() = default;
 	~Enemy() = default;
-	virtual void init(int healthAmount, float movementSpeed) 
-	{
-		m_health = healthAmount; 
-		m_movement_Speed = movementSpeed;
-	}
+	virtual void init(int healthAmount, float movementSpeed);
 	virtual void update(Vector3 & targetPosition,float dt) {}
 	virtual void takeDamage(int amount) { m_health -= amount; }
 	void setEnemyNode(SceneNode* enemyNode) { m_enemy_Node = enemyNode; }
@@ -28,12 +24,7 @@ public:
 	inline Entity* getEnemyMesh() const { return m_enemy_Mesh; }
 	inline EnemyType getEnemyType() const { return m_enemy_Type; }
 	inline int getHealth() const { return m_health; }
-	void clear(SceneManager* sceneManager) 
-	{
-		m_enemy_Node->detachAllObjects(); 
-		sceneManager->destroyEntity(m_enemy_Mesh); 
-		sceneManager->destroySceneNode(m_enemy_Node);
-	}
+	void clear(SceneManager* sceneManager);
 protected:
 	int m_health{ 10 };
 	float m_movement_Speed{ 5 };
