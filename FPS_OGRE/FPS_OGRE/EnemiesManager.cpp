@@ -1,13 +1,15 @@
 #include "EnemiesManager.h"
 #include <random>
 #include "CollisionManager.h"
-void EnemiesManager::init(int numberOfSimpleEnemiesToSpawn, int numberOfFlyingEnemiesToSpawn, int maxTimeBetweenSpawns, int minTimeBetweenSpawns)
+void EnemiesManager::init(int numberOfSimpleEnemiesToSpawn, int numberOfFlyingEnemiesToSpawn
+	, int maxTimeBetweenSpawns, int minTimeBetweenSpawns,int difficulty)
 {
 	m_number_Of_Simple_Enemies_To_Spawn = numberOfSimpleEnemiesToSpawn;
 	m_number_Of_Flying_Enemies_To_Spawn = numberOfFlyingEnemiesToSpawn;
 	m_max_Time_Between_Spawns = maxTimeBetweenSpawns;
 	m_min_Time_Between_Spawns = minTimeBetweenSpawns;
 	m_time_Until_Next_Spawn = (rand() % m_max_Time_Between_Spawns + m_min_Time_Between_Spawns);
+	m_difficulty = difficulty;
 }
 
 void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3 playerPos)
@@ -146,15 +148,16 @@ void EnemiesManager::spawnEnemy(SceneManager* sceneManager,EnemyType type)
 	Ogre::Vector3 enemyScale(1.0f, 1.0f, 1.0f);
 	std::string enemyName = "Demon" + std::to_string(m_current_Enemy_Number);
 	Enemy* enemy = nullptr;
+	float difficultyMultiplier = (m_difficulty * 2);
 	switch (type)
 	{
 	case EnemyType::FLYING:
 		enemy = EnemyFactories::CreateFlyingEnemy(sceneManager, enemyPos, enemyScale, enemyName.c_str());
-		enemy->init(3, 10);
+		enemy->init(3, 10 + difficultyMultiplier);
 		break;
 	case EnemyType::SIMPLE:
 		enemy = EnemyFactories::CreateSimpleEnemy(sceneManager, enemyPos, enemyScale, enemyName.c_str());
-		enemy->init(5, 20);
+		enemy->init(5 + difficultyMultiplier, 20);
 		break;
 	default:
 		enemy = EnemyFactories::CreateBaseEnemy(sceneManager, enemyPos, enemyScale, enemyName.c_str());

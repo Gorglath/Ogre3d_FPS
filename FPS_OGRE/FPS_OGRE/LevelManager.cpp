@@ -21,8 +21,9 @@ void LevelManager::init(Ogre::SceneManager* sceneManager, int levelNumber)
 		int numberOfFlyingEnemies = parser.getNumberOfFlyingEnemies();
 		int maxSpawnTime = parser.getMaxSpawnTime();
 		int minSpawnTime = parser.getMinSpawnTime();
-		int difficulty = parser.getDifficulty();//TODO: add difficulty option.
-		m_enemies_Manager.init(numberOfSimpleEnemies, numberOfFlyingEnemies, maxSpawnTime, minSpawnTime);
+		int difficulty = parser.getDifficulty();
+
+		m_enemies_Manager.init(numberOfSimpleEnemies, numberOfFlyingEnemies, maxSpawnTime, minSpawnTime,difficulty);
 	}
 }
 

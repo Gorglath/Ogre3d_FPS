@@ -11,7 +11,7 @@ class EnemiesManager
 public:
 	EnemiesManager() = default;
 	~EnemiesManager() = default;
-	void init(int numberOfSimpleEnemiesToSpawn,int numberOfFlyingEnemiesToSpawn, int maxTimeBetweenSpawns, int minTimeBetweenSpawns);
+	void init(int numberOfSimpleEnemiesToSpawn,int numberOfFlyingEnemiesToSpawn, int maxTimeBetweenSpawns, int minTimeBetweenSpawns, int difficulty);
 	void update(SceneManager* sceneManager, float dt, Vector3 playerPos);
 	void damageEnemy(SceneManager* sceneManager, Ray& shootingRay);
 	bool checkIfCollidingWithPosition(SceneManager* sceneManager, Vector3 targetPosition);
@@ -26,6 +26,7 @@ private:
 	int m_current_Enemy_Number{ 0 };
 	int m_max_Enemy_Spawn_Distance{ 80 };
 	int m_min_Enemy_Spawn_Distance{ 50 };
+	int m_difficulty{ 0 };
 	float m_spawn_Timer{ 0.0f };
 	vector<Enemy*> m_enemies{};
 };

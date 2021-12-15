@@ -4,5 +4,5 @@
     "flyingEnemies": 10,
     "maxSpawnTime": 5,
     "minSpawnTime": 3,
-    "difficulty": 0 
+    "difficulty": 2 
 }
