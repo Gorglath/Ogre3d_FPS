@@ -6,6 +6,7 @@ void SimpleEnemy::takeDamage(int amount)
 	m_is_Took_Damage = true;
 	m_health--;
 	m_timer = 0;
+
 }
 
 void SimpleEnemy::update(Vector3& targetPosition, float dt)

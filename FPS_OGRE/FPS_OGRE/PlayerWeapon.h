@@ -18,10 +18,14 @@ private:
 	Entity* m_weapon_Mesh = nullptr;
 	Quaternion m_initial_Rotation{};
 	Quaternion m_target_Rotation{};
-	float m_timer{ 0 };
+	ParticleSystem* m_shooting_Particle_System{};
+	float m_timer_Animation{ 0 };
 	float m_time_To_Return_To_Initial_Rotation{ 0.3f };
+	float m_timer_Particles{ 0 };
+	float m_time_To_Stop_Particles{ 0.1f };
 	bool m_is_Shooting{ false };
 	bool m_is_Lerping{ false };
+	bool m_is_Particle_Active{ false };
 
 
 };
