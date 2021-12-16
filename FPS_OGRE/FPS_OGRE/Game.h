@@ -5,7 +5,7 @@
 #include "LevelManager.h"
 #include "InputManager.h"
 #include "Player.h"
-#include "CollisionManager.h"
+#include "SoundManager.h"
 #include <vector>
 
 using std::vector;
@@ -19,10 +19,11 @@ private:
 	void restart();
 	void initializeGame();
 	int m_playerHealth{ 3 };
-	int m_currentLevel{ 1 };
+	int m_current_Level{ 1 };
 	Ogre::SceneManager* m_scene_Manager{};
 	Player m_player{};
-	LevelManager m_levelManager{};
+	LevelManager m_level_Manager{};
 	InputManager m_input_Manager{};
+	SoundManager m_sound_Manager{};
 };
 

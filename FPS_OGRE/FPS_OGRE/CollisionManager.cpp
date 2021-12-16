@@ -10,9 +10,14 @@ bool CollisionManager::checkCollisionWithEntity(Ogre::Entity* lEntity, Ogre::Ent
     return lEntity->getWorldBoundingBox().contains(rEntity->getBoundingBox());
 }
 
-bool CollisionManager::checkCollisionWithPoint(Ogre::Entity* entity, Ogre::Vector3& position)
+bool CollisionManager::checkCollisionWithPoint(Ogre::Entity* entity, Ogre::Vector3& v)
 {
-	return entity->getWorldBoundingBox().contains(position);
+	Ogre::Vector3 minimum = entity->getWorldBoundingBox().getMinimum();
+	Ogre::Vector3 maximum = entity->getWorldBoundingBox().getMaximum();
+	
+	return minimum.x <= v.x && v.x <= maximum.x &&
+		minimum.y <= v.y && v.y <= maximum.y &&
+		minimum.z <= v.z && v.z <= maximum.z;
 }
 
 bool CollisionManager::checkLineBox(Ogre::Entity* entity, Ogre::Vector3 L1, Ogre::Vector3 L2)

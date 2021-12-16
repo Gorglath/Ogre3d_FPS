@@ -5,16 +5,25 @@ void PlayerMovement::init(Ogre::SceneManager* sceneManager)
     //Create a new node to handle the camera.
     m_camera_Node = sceneManager->getRootSceneNode()->createChildSceneNode();
 
-
+    m_camera_Node->setPosition(0, 5, 0);
     m_camera_Yaw_Node = m_camera_Node->createChildSceneNode();
 
     m_camera_Pitch_Node = m_camera_Yaw_Node->createChildSceneNode();
+
+
+    SceneNode* cursorNode = m_camera_Pitch_Node->createChildSceneNode();
+    //cursorNode->pitch(Degree(90));
+    cursorNode->setPosition(Vector3(0.0f, -0.2f, -1.0f));
+
+    Entity* cursor = sceneManager->createEntity("Cursor", "Cursor.mesh");
+    cursor->setMaterialName("Cursor");
+    cursorNode->attachObject(cursor);
+
     // create the camera and attach it to the camera node.
     m_player_Camera = sceneManager->createCamera("myCam");
     m_player_Camera->setNearClipDistance(0.1f); 
     m_player_Camera->setAutoAspectRatio(true);
     m_camera_Pitch_Node->attachObject(m_player_Camera);
-    m_camera_Node->setPosition(0, 5, 0);
     SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 

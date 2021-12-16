@@ -130,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\User\Desktop\Libraries\C++\SDL\SDL2\SDL2-2.0.16\include;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\out\build\include;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\Components\RTShaderSystem\include;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\Components\Bites\include;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\OgreMain\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\Desktop\Libraries\C++\SDL\SDL2\SDL2-2.0.16\include;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\out\build\include;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\Components\RTShaderSystem\include;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\Components\Bites\include;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\OgreMain\include;C:\Users\User\Desktop\Libraries\C++\SDL\SDL2\SDL2_mixer-2.0.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -138,8 +138,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\User\Desktop\Libraries\C++\SDL\SDL2\SDL2-2.0.16\lib\x64;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\out\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreBites.lib;OgreRTShaderSystem.lib;OgreMain.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\User\Desktop\Libraries\C++\SDL\SDL2\SDL2_mixer-2.0.4\lib\x64;C:\Users\User\Desktop\Libraries\C++\SDL\SDL2\SDL2-2.0.16\lib\x64;C:\Users\User\Desktop\Libraries\C++\ogre-13.2.1\out\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreBites.lib;OgreRTShaderSystem.lib;OgreMain.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -155,6 +155,8 @@
     <ClCompile Include="PlayerMovement.cpp" />
     <ClCompile Include="PlayerWeapon.cpp" />
     <ClCompile Include="SimpleEnemy.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +178,8 @@
     <ClInclude Include="PlayerMovement.h" />
     <ClInclude Include="PlayerWeapon.h" />
     <ClInclude Include="SimpleEnemy.h" />
+    <ClInclude Include="Sound.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

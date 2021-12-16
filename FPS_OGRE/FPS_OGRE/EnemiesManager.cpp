@@ -12,7 +12,7 @@ void EnemiesManager::init(int numberOfSimpleEnemiesToSpawn, int numberOfFlyingEn
 	m_difficulty = difficulty;
 }
 
-void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3 playerPos)
+void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3 playerPos, SoundManager& soundManager)
 {
 	m_spawn_Timer += dt;
 	if (m_spawn_Timer >= m_time_Until_Next_Spawn)
@@ -23,6 +23,7 @@ void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3 p
 			if (m_number_Of_Simple_Enemies_To_Spawn > 0)
 			{
 				m_number_Of_Simple_Enemies_To_Spawn--;
+				soundManager.playSound("Enemy_Spawn", 1, true);
 				spawnEnemy(sceneManager,EnemyType::SIMPLE);
 			}
 			else
@@ -30,6 +31,7 @@ void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3 p
 				if (m_number_Of_Flying_Enemies_To_Spawn > 0)
 				{
 					m_number_Of_Flying_Enemies_To_Spawn--;
+					soundManager.playSound("Enemy_Spawn", 1, true);
 					spawnEnemy(sceneManager, EnemyType::FLYING);
 				}
 			}
@@ -39,6 +41,7 @@ void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3 p
 			if (m_number_Of_Flying_Enemies_To_Spawn > 0)
 			{
 				m_number_Of_Flying_Enemies_To_Spawn--;
+				soundManager.playSound("Enemy_Spawn", 1, true);
 				spawnEnemy(sceneManager, EnemyType::FLYING);
 			}
 			else
@@ -46,6 +49,7 @@ void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3 p
 				if (m_number_Of_Simple_Enemies_To_Spawn > 0)
 				{
 					m_number_Of_Simple_Enemies_To_Spawn--;
+					soundManager.playSound("Enemy_Spawn", 1, true);
 					spawnEnemy(sceneManager, EnemyType::SIMPLE);
 				}
 			}
@@ -58,7 +62,7 @@ void EnemiesManager::update(Ogre::SceneManager* sceneManager, float dt,Vector3 p
 	}
 }
 
-void EnemiesManager::damageEnemy(SceneManager* sceneManager, Ray& shootingRay)
+void EnemiesManager::damageEnemy(SceneManager* sceneManager, Ray& shootingRay, SoundManager& soundManager)
 {
 	int closestEnemyIndex = -1;
 	bool hitFirstEnemy = false;
@@ -86,9 +90,11 @@ void EnemiesManager::damageEnemy(SceneManager* sceneManager, Ray& shootingRay)
 	
 	if (hitFirstEnemy)
 	{
+		soundManager.playSound("Enemy_Hit", 2, true);
 		m_enemies[closestEnemyIndex]->takeDamage(1);
 		if (m_enemies[closestEnemyIndex]->getHealth() <= 0)
 		{
+			soundManager.playSound("Enemy_Death", 2, true);
 			m_enemies[closestEnemyIndex]->clear(sceneManager);
 			delete m_enemies[closestEnemyIndex];
 			m_enemies.erase(m_enemies.begin() + closestEnemyIndex);
@@ -100,12 +106,16 @@ bool EnemiesManager::checkIfCollidingWithPosition(SceneManager* sceneManager, Ve
 {
 	for (size_t i = 0; i < m_enemies.size(); i++)
 	{
-		if (CollisionManager::checkCollisionWithPoint(m_enemies[i]->getEnemyMesh(), targetPosition))
+		if (m_enemies[i]->getEnemyPosition().distance(targetPosition) < 10.0f)
 		{
+			if (CollisionManager::checkCollisionWithPoint(m_enemies[i]->getEnemyMesh(), targetPosition))
+			{
 				m_enemies[i]->clear(sceneManager);
 				delete m_enemies[i];
 				m_enemies.erase(m_enemies.begin() + i);
 				return true;
+				break;
+			}
 		}
 	}
 	return false;

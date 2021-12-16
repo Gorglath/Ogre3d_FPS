@@ -2,6 +2,7 @@
 #include "Ogre.h"
 #include "EnemyFactories.hpp"
 #include "Enemy.h"
+#include "SoundManager.h"
 #include <vector>
 
 using namespace Ogre;
@@ -12,11 +13,11 @@ public:
 	EnemiesManager() = default;
 	~EnemiesManager() = default;
 	void init(int numberOfSimpleEnemiesToSpawn,int numberOfFlyingEnemiesToSpawn, int maxTimeBetweenSpawns, int minTimeBetweenSpawns, int difficulty);
-	void update(SceneManager* sceneManager, float dt, Vector3 playerPos);
-	void damageEnemy(SceneManager* sceneManager, Ray& shootingRay);
+	void update(SceneManager* sceneManager, float dt, Vector3 playerPos, SoundManager& soundManager);
+	void damageEnemy(SceneManager* sceneManager, Ray& shootingRay,SoundManager& soundManager);
 	bool checkIfCollidingWithPosition(SceneManager* sceneManager, Vector3 targetPosition);
 	void clear(SceneManager* sceneManager);
-	inline bool hasEnemyLeftToSpawn() const { return (m_number_Of_Flying_Enemies_To_Spawn > 0 || m_number_Of_Flying_Enemies_To_Spawn > 0); }
+	inline bool hasEnemyLeftToSpawn() const { return (m_number_Of_Simple_Enemies_To_Spawn > 0 || m_number_Of_Flying_Enemies_To_Spawn > 0); }
 private:
 	void spawnEnemy(SceneManager* sceneManager,EnemyType type);
 	int m_number_Of_Simple_Enemies_To_Spawn{ 10 };

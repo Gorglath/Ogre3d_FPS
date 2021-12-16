@@ -6,6 +6,13 @@ Game::Game() : OgreBites::ApplicationContext("Test")
 
 void Game::setup(void)
 {
+	m_sound_Manager.loadSounds();
+
+	Ogre::RenderSystem* renderSys = getRoot()->getRenderSystem();
+
+	renderSys->setConfigOption("Full Screen", "No");
+	renderSys->setConfigOption("Video Mode", "800 x 600 @ 32-bit colour");
+
 	//Setup the ogre application.
 	OgreBites::ApplicationContext::setup();
 
@@ -21,7 +28,6 @@ void Game::setup(void)
 	MouseButtonInput* playerMouseButtonInput = &m_player;
 	m_input_Manager.addMouseButtonListener(playerMouseButtonInput);
 
-	
 	initializeGame();
 }
 
@@ -30,28 +36,30 @@ void Game::update(float dt)
 	m_player.update(dt);
 	Ogre::Vector3 playerPos = m_player.getPlayerPosition();
 
-	m_levelManager.update(m_scene_Manager, dt,playerPos);
+	m_level_Manager.update(m_scene_Manager, dt,playerPos,m_sound_Manager);
 
 	if (m_player.getIsShooting())
 	{
+		m_sound_Manager.playSound("Gun_Shot", 1, true);
 		m_player.setIsShooting(false);
 		Ogre::Ray shootingRay = m_player.getPlayerCamera()->getCameraToViewportRay(0.5f, 0.5f);
-		m_levelManager.checkIfHitEnemy(m_scene_Manager, shootingRay);
+		m_level_Manager.checkIfHitEnemy(m_scene_Manager, shootingRay,m_sound_Manager);
 	}
 
-	if (m_levelManager.checkIfPlayerGotHit(m_scene_Manager, playerPos))
+	if (m_level_Manager.checkIfPlayerGotHit(m_scene_Manager, playerPos))
 	{
+		m_sound_Manager.playSound("Player_Hit", 1, true);
 		m_playerHealth--;
-		if (m_playerHealth <= 0 || !m_levelManager.getHasEnemyLeftToSpawn())
+		if (m_playerHealth <= 0)
 		{
 			m_playerHealth = 3;
 			restart();
 		}
 	}
 
-	if (!m_levelManager.getHasEnemyLeftToSpawn())
+	if (!m_level_Manager.getHasEnemyLeftToSpawn())
 	{
-		m_currentLevel++;
+		m_current_Level++;
 		restart();
 	}
 }
@@ -63,7 +71,7 @@ void Game::restart()
 	shaderGen->removeSceneManager(m_scene_Manager);
 	getRenderWindow()->removeAllViewports();
 
-	m_levelManager.clear(m_scene_Manager);
+	m_level_Manager.clear(m_scene_Manager);
 	m_player.clear(m_scene_Manager);
 	
 	getRoot()->destroySceneManager(m_scene_Manager);
@@ -91,5 +99,9 @@ void Game::initializeGame()
 	getRenderWindow()->addViewport(m_player.getPlayerCamera());
 
 	//Load the base level.
-	m_levelManager.init(m_scene_Manager, m_currentLevel);
+	m_level_Manager.init(m_scene_Manager, m_current_Level);
+
+	std::string roundSoundName = "Round_" + std::to_string(m_current_Level);
+	m_sound_Manager.loopSound("Music", 3, true);
+	m_sound_Manager.playSound(roundSoundName.c_str(), 4, true);
 }
