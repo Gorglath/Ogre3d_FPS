@@ -12,8 +12,9 @@ void PlayerMovement::init(Ogre::SceneManager* sceneManager)
 
 
     SceneNode* cursorNode = m_camera_Pitch_Node->createChildSceneNode();
-    //cursorNode->pitch(Degree(90));
-    cursorNode->setPosition(Vector3(0.0f, -0.2f, -1.0f));
+    cursorNode->yaw(Degree(180));
+    cursorNode->setPosition(Vector3(0.0f, 0.0f, -0.3f));
+    cursorNode->scale(0.003f, 0.003f, 0.003f);
 
     Entity* cursor = sceneManager->createEntity("Cursor", "Cursor.mesh");
     cursor->setMaterialName("Cursor");

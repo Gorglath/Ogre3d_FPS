@@ -11,6 +11,8 @@ void PlayerWeapon::init(SceneManager* sceneManager,SceneNode* weaponHolderNode)
 	
 	m_weapon_Node->scale(0.1f, 0.1f, 0.1f);
 
+	
+
 	m_weapon_Node->yaw(Degree(85.0f));
 	m_weapon_Node->pitch(Degree(90.0f));
 

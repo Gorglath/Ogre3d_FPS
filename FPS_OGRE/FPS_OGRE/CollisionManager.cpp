@@ -12,12 +12,16 @@ bool CollisionManager::checkCollisionWithEntity(Ogre::Entity* lEntity, Ogre::Ent
 
 bool CollisionManager::checkCollisionWithPoint(Ogre::Entity* entity, Ogre::Vector3& v)
 {
-	Ogre::Vector3 minimum = entity->getWorldBoundingBox().getMinimum();
-	Ogre::Vector3 maximum = entity->getWorldBoundingBox().getMaximum();
-	
-	return minimum.x <= v.x && v.x <= maximum.x &&
-		minimum.y <= v.y && v.y <= maximum.y &&
-		minimum.z <= v.z && v.z <= maximum.z;
+	if (entity->isAttached()) {
+		Ogre::Vector3 minimum = entity->getWorldBoundingBox().getMinimum();
+		Ogre::Vector3 maximum = entity->getWorldBoundingBox().getMaximum();
+		return minimum.x <= v.x && v.x <= maximum.x &&
+			minimum.y <= v.y && v.y <= maximum.y &&
+			minimum.z <= v.z && v.z <= maximum.z;
+	}
+	else {
+		return false;
+	}
 }
 
 bool CollisionManager::checkLineBox(Ogre::Entity* entity, Ogre::Vector3 L1, Ogre::Vector3 L2)
