@@ -8,6 +8,7 @@ void Player::init(Ogre::SceneManager* sceneManager)
 void Player::update(float dt)
 {
     m_player_Movement.update(dt);
+    m_player_Weapon.update(dt);
 }
 
 void Player::setKeyboardInput(const OgreBites::KeyboardEvent& evt)
