@@ -17,7 +17,22 @@ public:
 	void damageEnemy(SceneManager* sceneManager, Ray& shootingRay,SoundManager& soundManager);
 	bool checkIfCollidingWithPosition(SceneManager* sceneManager, Vector3 targetPosition);
 	void clear(SceneManager* sceneManager);
-	inline bool hasEnemyLeftToSpawn() const { return (m_number_Of_Simple_Enemies_To_Spawn > 0 || m_number_Of_Flying_Enemies_To_Spawn > 0); }
+	inline bool hasEnemyLeft() const 
+	{
+		return (m_number_Of_Flying_Enemies_To_Spawn > 0 || m_number_Of_Simple_Enemies_To_Spawn > 0 || m_enemies.size() > 0);
+	/*	if (m_number_Of_Flying_Enemies_To_Spawn > 0 || m_number_Of_Simple_Enemies_To_Spawn > 0)
+		{
+			return true;
+		}
+		else if(m_enemies.size() > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}*/
+	}
 private:
 	void spawnEnemy(SceneManager* sceneManager,EnemyType type);
 	int m_number_Of_Simple_Enemies_To_Spawn{ 10 };

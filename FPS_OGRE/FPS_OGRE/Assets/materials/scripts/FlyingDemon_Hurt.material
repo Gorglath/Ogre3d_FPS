@@ -1,0 +1,13 @@
+material FlyingDemon_Hurt
+{
+    technique
+    {
+        pass
+        {
+		    texture_unit
+			{
+			    texture FlyingDemon_Hurt.jpg
+			}
+        }
+    }
+}

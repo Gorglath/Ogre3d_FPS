@@ -28,6 +28,9 @@ public:
 protected:
 	int m_health{ 10 };
 	float m_movement_Speed{ 5 };
+	float m_hurt_Material_Duration{ 0.3f };
+	float m_timer{ 0.0f };
+	bool m_is_Took_Damage{ false };
 	SceneNode* m_enemy_Node{};
 	Entity* m_enemy_Mesh{};
 	EnemyType m_enemy_Type{};

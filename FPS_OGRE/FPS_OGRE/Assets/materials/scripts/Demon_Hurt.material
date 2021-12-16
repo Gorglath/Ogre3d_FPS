@@ -1,0 +1,13 @@
+material Demon_Hurt
+{
+    technique
+    {
+        pass
+        {
+		    texture_unit
+			{
+			    texture penguin_Hurt.jpg
+			}
+        }
+    }
+}
