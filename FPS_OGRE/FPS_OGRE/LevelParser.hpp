@@ -10,7 +10,9 @@ public:
 	~LevelParser() = default;
 	bool tryParseLevel(int number)
 	{
+		//Get the path to the current folder.
 		std::filesystem::path levelPath = std::filesystem::current_path();
+		//Append the level json file path.
 		levelPath.append("Assets\\levels\\" + std::to_string(number) + ".json");
 		std::ifstream i(levelPath);
 

@@ -5,14 +5,31 @@
 using std::swap;
 using std::min;
 using std::max;
+/// <summary>
+/// Check if the entities collide.
+/// </summary>
+/// <param name="lEntity"></param>
+/// <param name="rEntity"></param>
+/// <returns></returns>
 bool CollisionManager::checkCollisionWithEntity(Ogre::Entity* lEntity, Ogre::Entity* rEntity)
 {
-    return lEntity->getWorldBoundingBox().contains(rEntity->getBoundingBox());
+	//Check if the entities are valid in the scene.
+	if (lEntity->isAttached() && rEntity->isAttached())
+	{
+		return lEntity->getWorldBoundingBox().contains(rEntity->getBoundingBox());
+	}
 }
-
+/// <summary>
+/// Check if a certain point is colliding with enemy.
+/// </summary>
+/// <param name="entity"></param>
+/// <param name="v"></param>
+/// <returns></returns>
 bool CollisionManager::checkCollisionWithPoint(Ogre::Entity* entity, Ogre::Vector3& v)
 {
-	if (entity->isAttached()) {
+	//Check if the entity is valid in the scene.
+	if (entity->isAttached()) 
+	{
 		Ogre::Vector3 minimum = entity->getWorldBoundingBox().getMinimum();
 		Ogre::Vector3 maximum = entity->getWorldBoundingBox().getMaximum();
 		return minimum.x <= v.x && v.x <= maximum.x &&
@@ -23,7 +40,13 @@ bool CollisionManager::checkCollisionWithPoint(Ogre::Entity* entity, Ogre::Vecto
 		return false;
 	}
 }
-
+/// <summary>
+/// Check if a line is intercecting with an entity.
+/// </summary>
+/// <param name="entity"></param>
+/// <param name="L1"></param>
+/// <param name="L2"></param>
+/// <returns></returns>
 bool CollisionManager::checkLineBox(Ogre::Entity* entity, Ogre::Vector3 L1, Ogre::Vector3 L2)
 {
 	Ogre::Vector3 Hit = Ogre::Vector3::ZERO;
@@ -54,12 +77,29 @@ bool CollisionManager::checkLineBox(Ogre::Entity* entity, Ogre::Vector3 L1, Ogre
 
 	return false;
 }
+/// <summary>
+/// Check if the point is within the given box.
+/// </summary>
+/// <param name="Hit"></param>
+/// <param name="B1"></param>
+/// <param name="B2"></param>
+/// <param name="Axis"></param>
+/// <returns></returns>
 int inline CollisionManager::InBox(Ogre::Vector3 Hit, Ogre::Vector3 B1, Ogre::Vector3 B2, const int Axis) {
 	if (Axis == 1 && Hit.z > B1.z && Hit.z < B2.z && Hit.y > B1.y && Hit.y < B2.y) return 1;
 	if (Axis == 2 && Hit.z > B1.z && Hit.z < B2.z && Hit.x > B1.x && Hit.x < B2.x) return 1;
 	if (Axis == 3 && Hit.x > B1.x && Hit.x < B2.x && Hit.y > B1.y && Hit.y < B2.y) return 1;
 	return 0;
 }
+/// <summary>
+/// Get the intesection between to given points.
+/// </summary>
+/// <param name="fDst1"></param>
+/// <param name="fDst2"></param>
+/// <param name="P1"></param>
+/// <param name="P2"></param>
+/// <param name="hit"></param>
+/// <returns></returns>
 int inline CollisionManager::GetIntersection(float fDst1, float fDst2, Ogre::Vector3 P1, Ogre::Vector3 P2, Ogre::Vector3& hit) {
 	if ((fDst1 * fDst2) >= 0.0f) return 0;
 	if (fDst1 == fDst2) return 0;

@@ -4,13 +4,16 @@ void PlayerMovement::init(Ogre::SceneManager* sceneManager)
 {
     //Create a new node to handle the camera.
     m_camera_Node = sceneManager->getRootSceneNode()->createChildSceneNode();
-
     m_camera_Node->setPosition(0, 5, 0);
+
+    //Create a new node to handle the camera yaw rotaition.
     m_camera_Yaw_Node = m_camera_Node->createChildSceneNode();
 
+    //Create a new node to handle the camera pitch rotation.
     m_camera_Pitch_Node = m_camera_Yaw_Node->createChildSceneNode();
 
 
+    //Create the weapon cursor.
     SceneNode* cursorNode = m_camera_Pitch_Node->createChildSceneNode();
     cursorNode->yaw(Degree(180));
     cursorNode->setPosition(Vector3(0.0f, 0.0f, -0.3f));
@@ -25,6 +28,8 @@ void PlayerMovement::init(Ogre::SceneManager* sceneManager)
     m_player_Camera->setNearClipDistance(0.1f); 
     m_player_Camera->setAutoAspectRatio(true);
     m_camera_Pitch_Node->attachObject(m_player_Camera);
+
+    //Lock the mouse to the middle of the screen.
     SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
@@ -32,16 +37,7 @@ void PlayerMovement::update(float dt)
 {
     calculateDesiredDirection();
 
-    if (m_lerping)
-    {
-        m_lerping_Percentage += m_lerping_Speed;
-        if ((m_lerping_Percentage * dt) > 1.0f)
-        {
-            m_lerping_Percentage = 1.0f;
-            m_lerping = false;
-            m_move_Direction = m_desired_Direction;
-        }
-    }
+    lerpMovement(dt);
 
     applyTranslation(dt);
 }
@@ -176,6 +172,19 @@ void PlayerMovement::applyTranslation(float dt)
     boundPlayerDirection(newTranslation);
     m_camera_Node->translate(newTranslation * dt
         , Ogre::SceneNode::TS_LOCAL);
+}
+void PlayerMovement::lerpMovement(float dt)
+{
+    if (m_lerping)
+    {
+        m_lerping_Percentage += m_lerping_Speed;
+        if ((m_lerping_Percentage * dt) > 1.0f)
+        {
+            m_lerping_Percentage = 1.0f;
+            m_lerping = false;
+            m_move_Direction = m_desired_Direction;
+        }
+    }
 }
 void PlayerMovement::stopPlayer()
 {

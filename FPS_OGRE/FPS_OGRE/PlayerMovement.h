@@ -19,6 +19,7 @@ private:
 	void keyPressed(const OgreBites::KeyboardEvent& evt);
 	void keyReleased(const OgreBites::KeyboardEvent& evt);
 	void applyTranslation(float dt);
+	void lerpMovement(float dt);
 	void stopPlayer();
 	void startLerping();
 	void calculateDesiredDirection();

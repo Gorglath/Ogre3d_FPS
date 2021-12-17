@@ -18,7 +18,7 @@ public:
 private:
 	void restart();
 	void initializeGame();
-	int m_playerHealth{ 3 };
+	void setUpInputListeners();
 	int m_current_Level{ 1 };
 	Ogre::SceneManager* m_scene_Manager{};
 	Player m_player{};

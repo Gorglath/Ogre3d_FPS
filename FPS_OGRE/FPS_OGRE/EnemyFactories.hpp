@@ -7,6 +7,14 @@ using namespace Ogre;
 class EnemyFactories
 {
 public:
+	/// <summary>
+	/// Creates a base enemy entity.
+	/// </summary>
+	/// <param name="sceneManager"></param>
+	/// <param name="position"></param>
+	/// <param name="scale"></param>
+	/// <param name="name"></param>
+	/// <returns></returns>
 	static Enemy* CreateBaseEnemy(SceneManager* sceneManager, Vector3& position, Vector3& scale, const char* name)
 	{
 		Enemy* enemy = new Enemy();
@@ -21,6 +29,15 @@ public:
 		enemy->setEnemyMesh(enemyMesh);
 		return enemy;
 	}
+
+	/// <summary>
+	/// Create a simple enemy entity.
+	/// </summary>
+	/// <param name="sceneManager"></param>
+	/// <param name="position"></param>
+	/// <param name="scale"></param>
+	/// <param name="name"></param>
+	/// <returns></returns>
 	static SimpleEnemy* CreateSimpleEnemy(SceneManager* sceneManager, Vector3& position, Vector3& scale, const char* name)
 	{
 		SimpleEnemy* enemy = new SimpleEnemy();
@@ -37,6 +54,14 @@ public:
 		enemy->setEnemyMesh(enemyMesh);
 		return enemy;
 	}
+	/// <summary>
+	/// Create a flying enemy entity.
+	/// </summary>
+	/// <param name="sceneManager"></param>
+	/// <param name="position"></param>
+	/// <param name="scale"></param>
+	/// <param name="name"></param>
+	/// <returns></returns>
 	static FlyingEnemy* CreateFlyingEnemy(SceneManager* sceneManager, Vector3& position, Vector3& scale, const char* name)
 	{
 		FlyingEnemy* enemy = new FlyingEnemy();

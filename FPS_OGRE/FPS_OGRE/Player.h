@@ -19,10 +19,16 @@ public:
 	void setMouseButtonInput(const OgreBites::MouseButtonEvent& evt) override;
 	void setIsShooting(bool state) { m_player_Weapon.setIsShooting(state); }
 	void clear(Ogre::SceneManager* sceneManager);
-	inline bool getIsShooting() const { return m_player_Weapon.getShooting(); }
+	void takeDamage(int amount);
 	inline Ogre::Camera* getPlayerCamera() const { return m_player_Movement.getPlayerCamera(); }
 	inline Ogre::Vector3 getPlayerPosition() const { return m_player_Movement.getPlayerPosition(); }
+	inline bool getIsShooting() const { return m_player_Weapon.getShooting(); }
+	inline bool getIsQuiting() const { return m_quit; }
+	inline bool getIsDead() const { return m_is_Dead; }
 private:
+	int m_player_Health{ 3 };
+	bool m_is_Dead{ false };
+	bool m_quit{ false };
 	PlayerMovement m_player_Movement;
 	PlayerWeapon m_player_Weapon;
 };

@@ -6,14 +6,16 @@ void LevelManager::init(Ogre::SceneManager* sceneManager, int levelNumber)
 	Ogre::SceneNode* roomNode = sceneManager->getRootSceneNode()->createChildSceneNode();
 	roomNode->scale(10, 10, 10);
 	roomNode->setPosition(0.0f, 100.0f, 0.0f);
-	Ogre::Entity* floor = sceneManager->createEntity("Room.mesh");
+	Ogre::Entity* room = sceneManager->createEntity("Room.mesh");
 
-	//Set the entity parameters and materials.
-	floor->setMaterialName("Room");
-	floor->setCastShadows(false);
+	//Set the room parameters and materials.
+	room->setMaterialName("Room");
+	room->setCastShadows(false);
 
-	//Add the entity to the scene.
-	roomNode->attachObject(floor);
+	//Add the room to the scene.
+	roomNode->attachObject(room);
+
+	//Load the current level from a file.
 	LevelParser parser;
 	if (parser.tryParseLevel(levelNumber))
 	{
