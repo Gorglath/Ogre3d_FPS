@@ -87,6 +87,10 @@ void Game::update(float dt)
 	{
 		//Load the next level.
 		m_current_Level++;
+		if (m_current_Level > 3)
+		{
+			m_current_Level = 1;
+		}
 		restart();
 	}
 }
