@@ -171,7 +171,10 @@ void PlayerMovement::applyTranslation(float dt)
     {
         newTranslation *= 1.7f;
     }
-    m_camera_Node->translate(m_camera_Yaw_Node->getOrientation() * newTranslation * dt
+
+    newTranslation = m_camera_Yaw_Node->getOrientation() * newTranslation;
+    boundPlayerDirection(newTranslation);
+    m_camera_Node->translate(newTranslation * dt
         , Ogre::SceneNode::TS_LOCAL);
 }
 void PlayerMovement::stopPlayer()
@@ -213,6 +216,31 @@ void PlayerMovement::calculateDesiredDirection()
     }
     m_desired_Direction.normalise();
     m_desired_Direction *= m_speed;
+}
+void PlayerMovement::boundPlayerDirection(Ogre::Vector3& direction)
+{
+    Ogre::Vector3 playerPos = m_camera_Node->getPosition();
+    if (direction.z > 0 && playerPos.z > m_player_Box_Bound_Value)
+    {
+        direction.z = 0;
+        playerPos.z = m_player_Box_Bound_Value;
+    }
+    if (direction.z < 0 && playerPos.z < -m_player_Box_Bound_Value)
+    {
+        direction.z = 0;
+        playerPos.z = -m_player_Box_Bound_Value;
+    }
+    if (direction.x > 0 && playerPos.x > m_player_Box_Bound_Value)
+    {
+        direction.x = 0;
+        playerPos.x = m_player_Box_Bound_Value;
+    }
+    if (direction.x < 0 && playerPos.x < -m_player_Box_Bound_Value)
+    {
+        direction.x = 0;
+        playerPos.x = -m_player_Box_Bound_Value;
+    }
+    m_camera_Node->setPosition(playerPos);
 }
 Ogre::Vector3 PlayerMovement::Lerp(Ogre::Vector3 start, Ogre::Vector3 end, float percent)
 {

@@ -11,7 +11,7 @@ void Game::setup(void)
 	Ogre::RenderSystem* renderSys = getRoot()->getRenderSystem();
 
 	renderSys->setConfigOption("Full Screen", "No");
-	renderSys->setConfigOption("Video Mode", "800 x 600 @ 32-bit colour");
+	renderSys->setConfigOption("Video Mode", "800 x 600 @ 32 - bit colour");
 
 	//Setup the ogre application.
 	OgreBites::ApplicationContext::setup();

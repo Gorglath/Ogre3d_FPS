@@ -10,14 +10,13 @@ particle_system Gun/Fire
 	emitter Point
 	{
 		angle 5
-		emission_rate 100
+		emission_rate 200
         time_to_live    1
-        direction       0 1 0
-        velocity_min    1
-        velocity_max    2
-        colour_range_start  1 1 0.5
-        colour_range_end    1 0.8 0.3
-		
+        direction       0 0.1 0
+        velocity_min    0.1
+        velocity_max    0.2
+        colour_range_start  0.3 0.3 0.3
+        colour_range_end    0.8 0.8 0.8		
 	}
 	affector ColourFader
 	{

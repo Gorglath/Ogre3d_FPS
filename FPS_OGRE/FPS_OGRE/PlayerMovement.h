@@ -22,6 +22,7 @@ private:
 	void stopPlayer();
 	void startLerping();
 	void calculateDesiredDirection();
+	void boundPlayerDirection(Ogre::Vector3& direction);
 	Ogre::Vector3 Lerp(Ogre::Vector3 start, Ogre::Vector3 end, float percent);
 	Ogre::Camera* m_player_Camera = nullptr;
 	Ogre::SceneNode* m_camera_Node = nullptr;
@@ -35,6 +36,7 @@ private:
 	float m_camera_Pivot_Pitch{ 0 };
 	float m_lerping_Percentage{ 0 };
 	float m_lerping_Speed{ 4.0f };
+	float m_player_Box_Bound_Value{ 90.0f };
 	bool m_lerping{ false };
 	bool m_running{ false };
 	bool m_moving_Forward{ false };

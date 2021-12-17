@@ -8,15 +8,17 @@ void PlayerWeapon::init(SceneManager* sceneManager,SceneNode* weaponHolderNode)
 	m_weapon_Mesh = sceneManager->createEntity("Weapon", "Gun.mesh");
 	m_weapon_Mesh->setMaterialName("Gun");
 	m_weapon_Node->attachObject(m_weapon_Mesh);
-	
 	m_weapon_Node->scale(0.1f, 0.1f, 0.1f);
 
-	SceneNode* particleNode = m_weapon_Node->createChildSceneNode();
-	particleNode->setPosition(0.0f, 0.05f, -0.3f);
-	particleNode->roll(Degree(-90));
+	m_particle_Node = m_weapon_Node->createChildSceneNode();
+	m_particle_Node_Offset = Vector3(1.7f,0,-0.2f);
+	m_particle_Node->setPosition(m_particle_Node_Offset);
+	m_particle_Node->roll(Degree(-90));
+
 	// create some nice fireworks and place it at the origin
 	m_shooting_Particle_System = sceneManager->createParticleSystem("Fire", "Gun/Fire");
-	particleNode->attachObject(m_shooting_Particle_System);
+	m_shooting_Particle_System->setKeepParticlesInLocalSpace(false);
+	m_particle_Node->attachObject(m_shooting_Particle_System);
 	m_shooting_Particle_System->setEmitting(false);
 	
 
