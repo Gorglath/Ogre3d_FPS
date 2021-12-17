@@ -386,12 +386,10 @@ FodyWeavers.xsd
 
 # Windows Installer files from build outputs
 *.cab
-*.msi
 *.msix
 *.msm
 *.msp
 
 # JetBrains Rider
 *.sln.iml
-FPS_OGRE/FPS_OGRE/ShootingTest
 FPS_OGRE/FPS/
