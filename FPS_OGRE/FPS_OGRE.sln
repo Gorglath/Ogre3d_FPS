@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FPS_OGRE", "FPS_OGRE\FPS_OGRE.vcxproj", "{AF799DD7-AA86-4EAC-A161-DEDFDA92541C}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FPS", "FPS\FPS.vdproj", "{63CC987A-D15F-449D-B0AE-57D409B56CCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{AF799DD7-AA86-4EAC-A161-DEDFDA92541C}.Release|x64.Build.0 = Release|x64
 		{AF799DD7-AA86-4EAC-A161-DEDFDA92541C}.Release|x86.ActiveCfg = Release|Win32
 		{AF799DD7-AA86-4EAC-A161-DEDFDA92541C}.Release|x86.Build.0 = Release|Win32
+		{63CC987A-D15F-449D-B0AE-57D409B56CCF}.Debug|x64.ActiveCfg = Debug
+		{63CC987A-D15F-449D-B0AE-57D409B56CCF}.Debug|x86.ActiveCfg = Debug
+		{63CC987A-D15F-449D-B0AE-57D409B56CCF}.Release|x64.ActiveCfg = Release
+		{63CC987A-D15F-449D-B0AE-57D409B56CCF}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

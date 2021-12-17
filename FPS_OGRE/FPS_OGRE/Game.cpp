@@ -1,11 +1,25 @@
 #include "Game.h"
 #include "EnemyFactories.hpp"
+#include <filesystem>
 Game::Game() : OgreBites::ApplicationContext("Test")
 {
 }
 
 void Game::setup(void)
 {
+	//Get the path to the current folder.
+	std::filesystem::path app_path = std::filesystem::current_path();
+	std::string app_path_string = app_path.string();
+
+	//Add the assets path to the resource manager.
+	ResourceGroupManager* rgm = ResourceGroupManager::getSingletonPtr();
+	rgm->addResourceLocation(app_path_string + "\\Assets\\models", "FileSystem");
+	rgm->addResourceLocation(app_path_string + "\\Assets\\materials\\textures", "FileSystem");
+	rgm->addResourceLocation(app_path_string + "\\Assets\\materials\\scripts", "FileSystem");
+	rgm->addResourceLocation(app_path_string + "\\Assets\\Main", "FileSystem");
+	rgm->addResourceLocation(app_path_string + "\\Assets\\RTShaderLib\\GLSL", "FileSystem");
+	rgm->addResourceLocation(app_path_string + "\\Assets\\particles", "FileSystem");
+
 	//Load all the game sounds.
 	m_sound_Manager.loadSounds();
 
